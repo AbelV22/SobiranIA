@@ -16,4 +16,19 @@ export default defineConfig({
     host: '127.0.0.1',
     port: 5173,
   },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor_react: ['react', 'react-dom'],
+          vendor_three: ['three', '@react-three/fiber', '@react-three/postprocessing'],
+          vendor_gsap: ['gsap', '@gsap/react'],
+          vendor_motion: ['framer-motion'],
+          vendor_ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog', 'lucide-react']
+        }
+      }
+    }
+  }
 });

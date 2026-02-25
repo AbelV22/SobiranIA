@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { useState, Suspense, lazy } from 'react';
 import { Navbar } from './sections/Navbar';
 import { HeroDark } from './sections/HeroDark';
-
-import { ProcessSection } from './sections/ProcessSection';
-import { ContactSection } from './sections/ContactSection';
-import { Footer } from './sections/Footer';
 import { NoiseOverlay } from './components/NoiseOverlay';
 import { CursorGlow } from './components/CursorGlow';
-import { TechPageOverlay } from './components/TechPageOverlay';
-import { BridgeStrip } from './components/BridgeStrip';
 
-import { Km0Section } from './sections/Km0Section';
+const Km0Section = lazy(() => import('./sections/Km0Section').then(module => ({ default: module.Km0Section })));
+const BridgeStrip = lazy(() => import('./components/BridgeStrip').then(module => ({ default: module.BridgeStrip })));
+const ProcessSection = lazy(() => import('./sections/ProcessSection').then(module => ({ default: module.ProcessSection })));
+const ContactSection = lazy(() => import('./sections/ContactSection').then(module => ({ default: module.ContactSection })));
+const Footer = lazy(() => import('./sections/Footer').then(module => ({ default: module.Footer })));
+const TechPageOverlay = lazy(() => import('./components/TechPageOverlay').then(module => ({ default: module.TechPageOverlay })));
 
 function App() {
   const [isTechOpen, setIsTechOpen] = useState(false);
@@ -22,15 +21,17 @@ function App() {
       <Navbar onTecnologiaClick={() => setIsTechOpen(true)} />
       <main style={{ position: 'relative' }}>
         <HeroDark />
-        <Km0Section />
-        <BridgeStrip />
-        <ProcessSection />
-        <ContactSection />
+        <Suspense fallback={<div className="min-h-screen bg-[#08080A]" />}>
+          <Km0Section />
+          <BridgeStrip />
+          <ProcessSection />
+          <ContactSection />
+        </Suspense>
       </main>
-      <Footer />
-
-      {/* Tech overlay — models + comparison, only accessible from nav */}
-      <TechPageOverlay isOpen={isTechOpen} onClose={() => setIsTechOpen(false)} />
+      <Suspense fallback={null}>
+        <Footer />
+        <TechPageOverlay isOpen={isTechOpen} onClose={() => setIsTechOpen(false)} />
+      </Suspense>
     </div>
   );
 }
