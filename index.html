@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SobiraniaIA - La teva IA, al teu despatx</title>
+    <meta name="description" content="Intel·ligència Artificial Local a Barcelona. Dades sota el teu control, mai al núvol. Compliment GDPR garantit.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #fafafa;
+            --color-text: #1d1d1f;
+            --color-text-secondary: #86868b;
+            --color-accent: #22D3EE;
+            --color-accent-dark: #06B6D4;
+            --color-dark: #0A0A0F;
+            --gradient-hero: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(250, 250, 250, 0.98);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--color-dark);
+        }
+
+        .logo span {
+            color: var(--color-accent-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent-dark);
+        }
+
+        .nav-cta {
+            background: var(--color-dark);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: #333;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10rem 2rem 6rem;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(34, 211, 238, 0.1);
+            color: var(--color-accent-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            text-align: center;
+            max-width: 900px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            color: var(--color-text-secondary);
+            text-align: center;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--color-dark);
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1.0625rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:hover {
+            background: #222;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-text);
+            padding: 1.1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1.0625rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-text);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .hero-image {
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 8rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .problem h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .problem > p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 4rem;
+            line-height: 1.7;
+        }
+
+        .pain-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .pain-point {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .pain-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pain-point-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .pain-point h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--color-dark);
+        }
+
+        .pain-point p {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 8rem 2rem;
+            background: white;
+        }
+
+        .solution-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: #fafafa;
+            padding: 3rem;
+            border-radius: 24px;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -20px rgba(34, 211, 238, 0.15);
+            border-color: rgba(34, 211, 238, 0.2);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.75rem;
+            font-size: 1.75rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-card p {
+            color: var(--color-text-secondary);
+            font-size: 1.0625rem;
+            line-height: 1.7;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 8rem 2rem;
+            background: var(--color-dark);
+            color: white;
+        }
+
+        .process-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .process-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .process-header p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            width: 40px;
+            height: 40px;
+            background: var(--color-accent);
+            color: var(--color-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .process-step p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 2rem;
+            background: #f0f0f0;
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item p {
+            color: var(--color-text-secondary);
+            font-size: 1.0625rem;
+        }
+
+        /* Target Section */
+        .target {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .target-content h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .target-content > p {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .target-list {
+            list-style: none;
+        }
+
+        .target-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 1.0625rem;
+        }
+
+        .target-list li::before {
+            content: "✓";
+            width: 24px;
+            height: 24px;
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--color-accent-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .target-visual {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .target-visual img {
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section > p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .urgency-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 59, 48, 0.1);
+            color: #ff3b30;
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            background: var(--color-dark);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        footer .logo {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        footer p {
+            font-size: 0.9375rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 8rem;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn-primary, .btn-secondary {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .target-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .target-visual {
+                order: -1;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Sobirania<span>IA</span></div>
+            <ul class="nav-links">
+                <li><a href="#problem">El Problema</a></li>
+                <li><a href="#solution">Solució</a></li>
+                <li><a href="#proces">Procés</a></li>
+                <li><a href="#contacte">Contacte</a></li>
+            </ul>
+            <a href="#contacte" class="nav-cta">Diagnosi Gratuïta</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-badge">
+            <span>🔒</span> Dades 100% locals, mai al núvol
+        </span>
+        <h1>La teva IA, <span>al teu despatx</span></h1>
+        <p class="hero-subtitle">
+            Intel·ligència Artificial instal·lada físicament al teu servidor. 
+            Dades sota el teu control, compliment GDPR garantit. 
+            Per a advocats, clíniques i empreses de Barcelona.
+        </p>
+        <div class="hero-cta-group">
+            <a href="#contacte" class="btn-primary">
+                Sol·licita diagnosi gratuïta
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <a href="#solution" class="btn-secondary">
+                Com funciona?
+            </a>
+        </div>
+        <div class="hero-image">
+            <img src="city-hero.png" alt="SobiraniaIA - Servidor local d'Intel·ligència Artificial">
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-number">500+</div>
+                <div class="hero-stat-label">Models disponibles</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">99.9%</div>
+                <div class="hero-stat-label">Uptime garantit</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">0€</div>
+                <div class="hero-stat-label">Multes GDPR</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problem">
+        <h2>Els teus documents, a Amsterdam?</h2>
+        <p>Cada cop que fas servir ChatGPT o altres IA al núvol, les teves dades sensibles viatgen a servidors fora de la UE. Això comporta riscos que poden costar-te molt car.</p>
+        <div class="pain-points">
+            <div class="pain-point">
+                <div class="pain-point-icon">⚠️</div>
+                <h3>Multes GDPR de fins a 20.000€</h3>
+                <p>La normativa europea és clara: les dades dels teus clients no poden sortir de la UE sense garanties adequades. Una filtració pot arribar a costar 20.000€ o més en sancions.</p>
+            </div>
+            <div class="pain-point">
+                <div class="pain-point-icon">🔓</div>
+                <h3>Dependència de tercers</h3>
+                <p>Els proveïdors d'IA al núvol poden canviar preus, polítiques o fins i tot suspendre serveis sense previ avís. Les teves dades, les seves normes.</p>
+            </div>
+            <div class="pain-point">
+                <div class="pain-point-icon">🐌</div>
+                <h3>Lentitud i indisponibilitat</h3>
+                <p>Depenent d'Internet per accedir a la IA significa retards, errors de connexió i moments crítics on no pots treballar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="solution-container">
+            <div class="section-header">
+                <h2>La solució: IA al teu servidor</h2>
+                <p>Instal·lem models d'Intel·ligència Artificial de codi obert directament als teus servidors físics. Les teves dades mai surten del teu despatx.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Soberania total de dades</h3>
+                    <p>Els teus documents, converses i informació confidencial es processen localment. Xifratge AES-256 i control absolut sobre qui accedeix a què.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Compliment GDPR garantit</h3>
+                    <p>Sense dubtes legals. Sense clàusules d'exempció de responsabilitat. Les teves dades es queden on han d'estar: sota el teu control.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Velocitat de resposta local</h3>
+                    <p>Resposta instantània sense dependre de la connexió a Internet. Treballa amb la IA encara que la connexió falli.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Cost fix, sense sorpreses</h3>
+                    <p>Sinònims de pagament per API ni quotes variables. Un cost predecible mensual independentment de quant la facis servir.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>500+ models disponibles</h3>
+                    <p>Des de Llama i Mistral fins a models especialitzats en dret, medicina o finances. Trieu el que millor s'adapti al vostre negoci.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Suport presencial BCN</h3>
+                    <p>No som un call center a l'altra banda del món. Som aquí, a Barcelona, per ajudar-te presencialment quan ho necessitis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="proces">
+        <div class="process-container">
+            <div class="process-header">
+                <h2>Com ho fem realitat</h2>
+                <p>Tres passos senzills per tenir la teva pròpia IA funcionant al teu despatx</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Anàlisi i diagnosi</h3>
+                    <p>Estudiem els teus processos actuals i identifiquem oportunitats d'automatització amb IA. Sense compromís, totalment gratuït.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Instal·lació física</h3>
+                    <p>Portem i configurem el servidor de alta gamma al teu despatx. Xifratge AES-256, backup automàtic i seguretat enterprise.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Integració i formació</h3>
+                    <p>La IA treballa dins dels teus programes habituals. Formem al teu equip per treure el màxim profit des del primer dia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Models d'IA disponibles</p>
+            </div>
+            <div class="stat-item">
+                <h3>10M+</h3>
+                <p>Consultes processades</p>
+            </div>
+            <div class="stat-item">
+                <h3>99.9%</h3>
+                <p>Uptime garantit</p>
+            </div>
+            <div class="stat-item">
+                <h3>92%</h3>
+                <p>No tornen al núvol</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Section -->
+    <section class="target">
+        <div class="target-grid">
+            <div class="target-content">
+                <h2>Dissenyat per a professionals que valoren la privacitat</h2>
+                <p>SobiraniaIA està especialment pensat per a negocis a Barcelona que manegen informació confidencial i necessiten complir amb la normativa de protecció de dades.</p>
+                <ul class="target-list">
+                    <li>Despatxos d'advocats i procuradors</li>
+                    <li>Clíniques dentals i mèdiques</li>
+                    <li>Assessories i gestories</li>
+                    <li>Consultories i despatxos professionals</li>
+                    <li>Inmobiliàries i finques</li>
+                    <li>Qualsevol empresa amb dades sensibles</li>
+                </ul>
+            </div>
+            <div class="target-visual">
+                <img src="city-hero.png" alt="SobiraniaIA per a professionals de Barcelona">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contacte">
+        <h2>No esperis una multa per protegir les teves dades</h2>
+        <p>El 92% de les empreses que proven la IA local no tornen al núvol. Uneix-te a elles amb una prova gratuïta i sense compromís.</p>
+        <div class="urgency-badge">
+            <span>⏰</span> Només 3 instal·lacions disponibles aquest mes
+        </div>
+        <a href="mailto:hola@sobiranIA.cat" class="btn-primary">
+            Sol·licita diagnosi gratuïta
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo">Sobirania<span>IA</span></div>
+        <p>La teva IA, al teu despatx</p>
+        <p>Barcelona i àrea metropolitana</p>
+        <p style="margin-top: 1rem;">
+            <a href="mailto:hola@sobiranIA.cat">hola@sobiranIA.cat</a> | 
+            <a href="tel:+34930000000">+34 93 000 00 00</a>
+        </p>
+        <p style="margin-top: 2rem; font-size: 0.875rem; opacity: 0.6;">
+            © 2025 SobiraniaIA. Tots els drets reservats.
+        </p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

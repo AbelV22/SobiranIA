@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SobiraniaIA - La teva IA, al teu despatx</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #0ea5e9;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Navigation - Transparente sobre la imagen */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            z-index: 1000;
+            background: transparent;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+        }
+
+        .logo span {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            background: var(--text-primary);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Hero Section - Imagen como fondo gigante */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Imagen de fondo gigante */
+        .hero-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+            height: 150%;
+            background: url('city-hero.png') center center no-repeat;
+            background-size: contain;
+            z-index: 0;
+            animation: slowZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        /* Overlay gradiente para legibilidad */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.7) 100%),
+                linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.9) 100%);
+            z-index: 1;
+        }
+
+        /* Contenido centrado sobre la imagen */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        /* Typewriter principal - Grande y central */
+        .typewriter-container {
+            margin-bottom: 3rem;
+        }
+
+        .typewriter {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 500;
+            line-height: 1.1;
+            color: var(--text-primary);
+            min-height: 7rem;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 4px;
+            height: 0.9em;
+            background: var(--accent);
+            margin-left: 8px;
+            animation: blink 1s infinite;
+            vertical-align: baseline;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-weight: 400;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            background: rgba(255,255,255,0.9);
+            color: var(--text-primary);
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid rgba(15, 23, 42, 0.15);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            background: white;
+            transform: translateY(-3px);
+        }
+
+        /* Stats flotantes */
+        .hero-stats {
+            display: flex;
+            gap: 5rem;
+            justify-content: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(15, 23, 42, 0.1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            color: var(--text-secondary);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Features Section - Blanca */
+        .features {
+            padding: 10rem 4rem;
+            background: white;
+            position: relative;
+            z-index: 3;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 300;
+            color: var(--accent);
+            opacity: 0.2;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 10rem 4rem;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            position: relative;
+            z-index: 3;
+        }
+
+        .problem-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .problem h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .problem h2 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .problem > p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 0 auto 5rem;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .problem-item {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+
+        .problem-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+        }
+
+        .problem-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .problem-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .problem-item p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 10rem 4rem;
+            background: white;
+            position: relative;
+            z-index: 3;
+        }
+
+        .solution-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 3.5rem;
+            border-radius: 28px;
+            transition: all 0.4s;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.08);
+        }
+
+        .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .solution-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .solution-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 10rem 4rem;
+            background: var(--text-primary);
+            color: white;
+            position: relative;
+            z-index: 3;
+        }
+
+        .process-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .process-header .section-label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .process-header .section-title {
+            color: white;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 40px rgba(14, 165, 233, 0.4);
+        }
+
+        .process-step h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .process-step p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 10rem 4rem;
+            background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+            text-align: center;
+            position: relative;
+            z-index: 3;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta h2 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .cta > p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .urgency-note {
+            margin-top: 2.5rem;
+            font-size: 1rem;
+            color: #dc2626;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 4rem;
+            background: var(--text-primary);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+        }
+
+        footer .logo {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            transition: border-color 0.3s;
+        }
+
+        footer a:hover {
+            border-color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-background {
+                width: 200%;
+                height: 200%;
+            }
+
+            .typewriter {
+                font-size: clamp(2.5rem, 8vw, 4rem);
+                min-height: 5rem;
+            }
+
+            .features-grid,
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .hero-stats {
+                gap: 3rem;
+                flex-wrap: wrap;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .hero {
+                min-height: 100vh;
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .features,
+            .problem,
+            .solution,
+            .process,
+            .cta {
+                padding: 6rem 1.5rem;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Sobirania<span>IA</span></div>
+            <ul class="nav-links">
+                <li><a href="#solucio">Solució</a></li>
+                <li><a href="#proces">Procés</a></li>
+                <li><a href="#contacte">Contacte</a></li>
+            </ul>
+            <a href="#contacte" class="nav-cta">Diagnosi Gratuïta</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Imagen como fondo gigante -->
+    <section class="hero">
+        <!-- Imagen de fondo enorme y central -->
+        <div class="hero-background"></div>
+        
+        <!-- Overlay para legibilidad -->
+        <div class="hero-overlay"></div>
+
+        <!-- Contenido centrado -->
+        <div class="hero-content">
+            <span class="hero-label">Intel·ligència Artificial Local</span>
+            
+            <div class="typewriter-container">
+                <div class="typewriter">
+                    <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+                </div>
+            </div>
+
+            <p class="hero-description">
+                Instal·lem models d'IA de codi obert directament als teus servidors físics. 
+                Les teves dades mai surten de Barcelona.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="#contacte" class="btn-primary">Sol·licita diagnosi gratuïta</a>
+                <a href="#solucio" class="btn-outline">Com funciona?</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">500+</span>
+                    <div class="stat-label">Models</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">99.9%</span>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">0€</span>
+                    <div class="stat-label">Multes GDPR</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">92%</span>
+                    <div class="stat-label">Fidelitat</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="solucio">
+        <div class="features-container">
+            <div class="section-header">
+                <span class="section-label">Per què SobiraniaIA?</span>
+                <h2 class="section-title">Soberania digital per al teu negoci</h2>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-number">01</div>
+                    <h3 class="feature-title">Privacitat absoluta</h3>
+                    <p class="feature-text">Dades mai al núvol. Xifratge AES-256 i control total sobre qui accedeix a la informació confidencial.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-number">02</div>
+                    <h3 class="feature-title">Compliment GDPR</h3>
+                    <p class="feature-text">Evita multes de fins a 20.000€. Normativa europea complerta sense dubtes legals ni clàusules d'exempció.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-number">03</div>
+                    <h3 class="feature-title">Suport local BCN</h3>
+                    <p class="feature-text">No som un call center a l'altra banda del món. Som aquí, a Barcelona, per ajudar-te presencialment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="problem-container">
+            <span class="section-label">El Problema</span>
+            <h2>Els teus documents, <em>a Amsterdam?</em></h2>
+            <p>Cada vegada que fas servir IA al núvol, les teves dades viatgen a servidors fora de la teva empresa. Això comporta riscos legals i operatius greus.</p>
+
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <div class="problem-icon">⚠️</div>
+                    <h3>Multes GDPR</h3>
+                    <p>Sancions de fins a 20.000€ per incompliment de la normativa europea de protecció de dades.</p>
+                </div>
+
+                <div class="problem-item">
+                    <div class="problem-icon">🔓</div>
+                    <h3>Pèrdua de control</h3>
+                    <p>Dependència de proveïdors externs amb canvis de preu imprevisibles i polítiques opaques.</p>
+                </div>
+
+                <div class="problem-item">
+                    <div class="problem-icon">🐌</div>
+                    <h3>Lentitud</h3>
+                    <p>Pèrdua de productivitat per errors de connexió i moments crítics sense accés a la IA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="solution-container">
+            <div class="solution-header">
+                <span class="section-label">La Solució</span>
+                <h2 class="section-title">IA local, control absolut</h2>
+            </div>
+
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🔐</div>
+                    <h3>Seguretat empresarial</h3>
+                    <p>Xifratge AES-256, backups automàtics locals i control d'accés granular per usuari.</p>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-icon">⚡</div>
+                    <h3>Velocitat local</h3>
+                    <p>Resposta instantània sense dependre d'Internet. Treballa amb IA encara que la connexió falli.</p>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-icon">💰</div>
+                    <h3>Cost previsible</h3>
+                    <p>Cap pagament per API ni quotes variables. Un cost fix mensual independentment de l'ús.</p>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-icon">🤖</div>
+                    <h3>500+ models</h3>
+                    <p>Des de Llama i Mistral fins a models especialitzats en dret, medicina o finances.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="proces">
+        <div class="process-container">
+            <div class="process-header">
+                <span class="section-label">Com funciona</span>
+                <h2 class="section-title">Tres passos cap a la sobirania</h2>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Anàlisi</h3>
+                    <p>Estudiem els teus processos i identifiquem oportunitats. Diagnosi gratuïta sense compromís.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Instal·lació</h3>
+                    <p>Configurem el servidor de alta gamma al teu despatx amb seguretat enterprise i xifratge.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Integració</h3>
+                    <p>La IA treballa als teus programes habituals. Formació del teu equip inclosa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contacte">
+        <div class="cta-container">
+            <span class="section-label">Comença avui</span>
+            <h2>No esperis una multa <em>per protegir les teves dades</em></h2>
+            <p>El 92% de les empreses que proven la IA local no tornen al núvol. Uneix-te a elles amb una prova gratuïta i sense compromís.</p>
+            
+            <a href="mailto:hola@sobiranIA.cat" class="btn-primary">Sol·licita diagnosi gratuïta</a>
+            
+            <p class="urgency-note">⚠️ Només 3 instal·lacions disponibles aquest mes</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo">Sobirania<span>IA</span></div>
+        <p>La teva IA, al teu despatx</p>
+        <p>Barcelona i àrea metropolitana</p>
+        <p style="margin-top: 1.5rem;">
+            <a href="mailto:hola@sobiranIA.cat">hola@sobiranIA.cat</a> · 
+            <a href="tel:+34930000000">+34 93 000 00 00</a>
+        </p>
+        <p style="margin-top: 2rem; font-size: 0.875rem; opacity: 0.5;">© 2025 SobiraniaIA. Tots els drets reservats.</p>
+    </footer>
+
+    <!-- Typewriter Effect -->
+    <script>
+        const slogans = [
+            "La teva IA, al teu despatx",
+            "Dades sota el teu control",
+            "Compliment GDPR garantit",
+            "Més de 500 models locals",
+            "Suport presencial a Barcelona"
+        ];
+
+        let sloganIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+        const typewriterElement = document.getElementById('typewriter-text');
+
+        function typeWriter() {
+            const currentSlogan = slogans[sloganIndex];
+            
+            if (isDeleting) {
+                typewriterElement.textContent = currentSlogan.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50;
+            } else {
+                typewriterElement.textContent = currentSlogan.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentSlogan.length) {
+                isDeleting = true;
+                typeSpeed = 2000;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                sloganIndex = (sloganIndex + 1) % slogans.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', typeWriter);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Parallax effect en scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBackground = document.querySelector('.hero-background');
+            if (heroBackground && scrolled < window.innerHeight) {
+                heroBackground.style.transform = `translate(-50%, -50%) translateY(${scrolled * 0.3}px) scale(1)`;
+            }
+        });
+    </script>
+</body>
+</html>
