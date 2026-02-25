@@ -68,7 +68,7 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
       }}
     >
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 48px 0 32px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '56px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '48px' }}>
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

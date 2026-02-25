@@ -147,11 +147,11 @@ export function HeroDark() {
         position: 'relative',
         width: '100%',
         height: '100dvh',
-        minHeight: 650,
+        minHeight: 500,
         overflow: 'hidden',
         background: '#07070A',
         display: 'grid',
-        gridTemplateRows: '56px 1fr 200px',
+        gridTemplateRows: '48px 1fr min-content',
         gridTemplateColumns: '1fr',
       }}
     >
@@ -291,7 +291,7 @@ export function HeroDark() {
         </div>
       </div>
 
-      {/* ══ ROW 3 — TEXT + CTA (fixed 200px, always fully visible) ══ */}
+      {/* ══ ROW 3 — TEXT + CTA (min-content so it adapts to screen sizes) ══ */}
       <div style={{
         gridRow: 3,
         position: 'relative',
@@ -301,17 +301,17 @@ export function HeroDark() {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '0 24px',
-        gap: 12,
-        background: 'linear-gradient(to bottom, transparent 0%, rgba(7,7,10,0.6) 22%, rgba(7,7,10,0.94) 58%, #07070A 100%)',
+        padding: '16px 24px 48px', // Added vertical padding
+        gap: 10,
+        background: 'linear-gradient(to bottom, transparent 0%, rgba(7,7,10,0.6) 15%, #07070A 40%, #07070A 100%)',
       }}>
 
         {/* Overline tag */}
         <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8,
-          padding: '4px 14px', borderRadius: 99,
-          background: 'rgba(0,188,212,0.06)',
-          border: '1px solid rgba(0,188,212,0.15)',
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+          padding: '3px 12px', borderRadius: 99,
+          background: 'rgba(0,188,212,0.05)',
+          border: '1px solid rgba(0,188,212,0.12)',
         }}>
           <div style={{
             width: 4, height: 4, borderRadius: '50%',
@@ -320,9 +320,9 @@ export function HeroDark() {
             animation: 'ambient-breathe 2.5s ease-in-out infinite',
           }} />
           <span style={{
-            fontFamily: 'monospace', fontSize: 9, fontWeight: 600,
-            letterSpacing: '0.2em', textTransform: 'uppercase',
-            color: 'rgba(0,188,212,0.7)',
+            fontFamily: 'monospace', fontSize: 8, fontWeight: 600,
+            letterSpacing: '0.18em', textTransform: 'uppercase',
+            color: 'rgba(0,188,212,0.6)',
           }}>
             Intel·ligència Artificial · KM0
           </span>
@@ -330,11 +330,10 @@ export function HeroDark() {
 
         {/* Headline */}
         <h1 ref={headlineRef} style={{
-          fontFamily: "'Syne', -apple-system, BlinkMacSystemFont, sans-serif",
-          fontSize: 42,
+          fontSize: 'clamp(28px, 4vw, 38px)',
           fontWeight: 800,
-          lineHeight: 1.04,
-          letterSpacing: '-0.05em',
+          lineHeight: 1.06,
+          letterSpacing: '-0.045em',
           margin: 0,
           opacity: 0,
         }}>
@@ -344,17 +343,17 @@ export function HeroDark() {
 
         {/* Subtitle */}
         <p ref={subtitleRef} style={{
-          fontSize: 16,
+          fontSize: 15,
           fontWeight: 400,
           lineHeight: 1.55,
-          color: 'rgba(245,245,247,0.55)',
-          maxWidth: 520,
+          color: 'rgba(245,245,247,0.50)',
+          maxWidth: 500,
           margin: 0,
           opacity: 0,
           letterSpacing: '-0.01em',
         }}>
           IA instal·lada al teu servidor. Sense quotes mensuals.{' '}
-          <span style={{ color: 'rgba(245,245,247,0.82)', fontWeight: 500 }}>
+          <span style={{ color: 'rgba(245,245,247,0.80)', fontWeight: 500 }}>
             Les teves dades, sempre sota el teu control.
           </span>
         </p>
@@ -367,7 +366,7 @@ export function HeroDark() {
             style={{
               background: 'linear-gradient(135deg, #00D4EF 0%, #0097A7 60%, #006F8A 100%)',
               color: '#050507', fontWeight: 700,
-              padding: '14px 38px', fontSize: 15,
+              padding: '13px 34px', fontSize: 14,
               borderRadius: 9999, border: 'none', cursor: 'pointer',
               display: 'inline-flex', alignItems: 'center', gap: 9,
               transition: 'all 0.4s cubic-bezier(0.22,1,0.36,1)',
@@ -391,12 +390,28 @@ export function HeroDark() {
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>
+
+        {/* Scroll indicator */}
+        <div style={{
+          position: 'absolute', bottom: 12, left: '50%', transform: 'translateX(-50%)',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+          opacity: 0.35, animation: 'scroll-bounce 2s ease-in-out infinite',
+        }}>
+          <span style={{ fontSize: 9, fontFamily: 'monospace', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>scroll</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(0,188,212,0.6)" strokeWidth="2">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </div>
       </div>
 
       <style>{`
         @keyframes orbit-spin {
           from { transform: translate(-50%,-50%) rotate(0deg); }
           to   { transform: translate(-50%,-50%) rotate(360deg); }
+        }
+        @keyframes scroll-bounce {
+          0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.35; }
+          50% { transform: translateX(-50%) translateY(6px); opacity: 0.55; }
         }
       `}</style>
     </section>

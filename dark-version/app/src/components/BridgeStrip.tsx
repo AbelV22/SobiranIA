@@ -145,7 +145,6 @@ export function BridgeStrip() {
               style={{
                 margin: 0,
                 fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
-                fontFamily: "'Syne', -apple-system, sans-serif",
                 fontWeight: 800,
                 lineHeight: 1.0,
                 letterSpacing: '-0.04em',
@@ -162,7 +161,6 @@ export function BridgeStrip() {
               style={{
                 margin: 0,
                 fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
-                fontFamily: "'Syne', -apple-system, sans-serif",
                 fontWeight: 800,
                 lineHeight: 1.0,
                 letterSpacing: '-0.04em',

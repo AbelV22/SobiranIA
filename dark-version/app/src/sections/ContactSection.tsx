@@ -168,8 +168,7 @@ export function ContactSection() {
 
           <h2 style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.75rem)',
-            fontFamily: "'Syne', -apple-system, sans-serif",
-            fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em',
+            fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.025em',
             color: 'rgba(255,255,255,0.95)', marginBottom: 14,
           }}>
             Quant temps perds ara{' '}
