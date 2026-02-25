@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -19,6 +20,7 @@ interface Particle {
 */
 
 export function HeroDark() {
+  const isMobile = useIsMobile();
   const heroRef = useRef<HTMLElement>(null);
   const maquetteInnerRef = useRef<HTMLDivElement>(null);
   const maquetteWrapperRef = useRef<HTMLDivElement>(null);
@@ -147,11 +149,11 @@ export function HeroDark() {
         position: 'relative',
         width: '100%',
         height: '100dvh',
-        minHeight: 500,
+        minHeight: isMobile ? 650 : 500,
         overflow: 'hidden',
         background: '#07070A',
         display: 'grid',
-        gridTemplateRows: '48px 1fr min-content',
+        gridTemplateRows: isMobile ? '48px 1fr auto' : '48px 1fr min-content',
         gridTemplateColumns: '1fr',
       }}
     >
@@ -301,7 +303,7 @@ export function HeroDark() {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '16px 24px 48px', // Added vertical padding
+        padding: isMobile ? '16px 24px 80px' : '16px 24px 48px', // Added vertical padding
         gap: 10,
         background: 'linear-gradient(to bottom, transparent 0%, rgba(7,7,10,0.6) 15%, #07070A 40%, #07070A 100%)',
       }}>

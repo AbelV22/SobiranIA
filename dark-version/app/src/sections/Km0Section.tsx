@@ -2,6 +2,7 @@
 import { Suspense, lazy, useRef, useState, memo } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // ════════════════════════════════════════════════════════════
 //  KM0 SCROLLYTELLING — "Del Caos al Control"
@@ -138,6 +139,7 @@ const GlobeWrapper = memo(function GlobeWrapper({ scrollYProgress }: { scrollYPr
 // ═══════════════════════════════════════════════════
 export function Km0Section() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const [blockAOpacity, setBlockAOpacity] = useState(1);
   const [blockMOpacity, setBlockMOpacity] = useState(0); // pivot bridge
@@ -237,10 +239,12 @@ export function Km0Section() {
         }}>
           <div style={{
             display: 'flex', alignItems: 'center', height: '100%',
-            maxWidth: 1200, margin: '0 auto', padding: '72px 40px 0 48px', gap: 60,
+            maxWidth: 1200, margin: '0 auto',
+            padding: isMobile ? '100px 24px 0 24px' : '72px 40px 0 48px',
+            gap: isMobile ? 32 : 60,
+            flexDirection: isMobile ? 'column' : 'row',
           }}>
-            {/* ── Left: Text ── */}
-            <div style={{ flex: '0 0 auto', width: 'min(440px, 42vw)' }}>
+            <div style={{ flex: '0 0 auto', width: isMobile ? '100%' : 'min(440px, 42vw)' }}>
 
               {/* Overline badge */}
               <div style={{
@@ -320,7 +324,7 @@ export function Km0Section() {
 
             {/* ── Right: Globe ── */}
             <motion.div style={{
-              flex: '1', height: '78vh',
+              flex: '1', height: isMobile ? '40vh' : '78vh', width: isMobile ? '100%' : 'auto',
               opacity: globeOpacity,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               minWidth: 0,
@@ -422,6 +426,7 @@ export function Km0Section() {
         }}>
           <div style={{
             display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
             width: '100%', height: '100%',
             maxWidth: 1400, margin: '0 auto',
           }}>
@@ -433,19 +438,20 @@ export function Km0Section() {
                   key={item.id}
                   style={{
                     position: 'relative',
-                    height: '100vh',
+                    height: isMobile ? (isActive ? 'auto' : '80px') : '100vh',
                     // Flexbox expansion logic
-                    flex: isActive ? '3' : '1',
+                    flex: isActive ? (isMobile ? '1' : '3') : (isMobile ? '0 0 80px' : '1'),
                     minWidth: 0, // allow flex shrinking
 
                     background: isActive ? '#050506' : '#000000',
-                    borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                    borderLeft: !isMobile && i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                    borderTop: isMobile && i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
 
                     overflow: 'hidden',
-                    transition: 'flex 0.8s cubic-bezier(0.25, 1, 0.5, 1), background 0.5s ease',
+                    transition: 'flex 0.8s cubic-bezier(0.25, 1, 0.5, 1), height 0.8s cubic-bezier(0.25, 1, 0.5, 1), background 0.5s ease',
                     display: 'flex', flexDirection: 'column',
                     justifyContent: 'center',
-                    padding: isActive ? '0 80px' : '0 20px',
+                    padding: isActive ? (isMobile ? '40px 24px' : '0 80px') : (isMobile ? '0 24px' : '0 20px'),
                     cursor: 'default',
                   }}
                 >
@@ -508,9 +514,11 @@ export function Km0Section() {
                     </div>
                   )}
 
-                  {/* Header: Giant Number (Always visible, positions differently) */}
                   <div style={{
-                    position: 'absolute', top: 120, left: isActive ? 80 : 20,
+                    position: 'absolute',
+                    top: isMobile ? (isActive ? 40 : '50%') : 120,
+                    left: isMobile ? 24 : (isActive ? 80 : 20),
+                    transform: isMobile && !isActive ? 'translateY(-50%)' : 'none',
                     transition: 'all 0.8s ease',
                   }}>
                     <span style={{
@@ -566,10 +574,11 @@ export function Km0Section() {
                   </div>
 
 
-                  {/* ── Inactive Vertical Label ── */}
                   <div style={{
-                    position: 'absolute', top: '50%', left: '50%',
-                    transform: 'translate(-50%, -50%) rotate(-90deg)',
+                    position: 'absolute',
+                    top: '50%',
+                    left: isMobile ? 70 : '50%', // On mobile, push it to right of the number
+                    transform: isMobile ? 'translateY(-50%)' : 'translate(-50%, -50%) rotate(-90deg)',
                     whiteSpace: 'nowrap',
                     opacity: isActive ? 0 : 1,
                     transition: 'opacity 0.3s ease',
@@ -577,7 +586,7 @@ export function Km0Section() {
                     zIndex: 2,
                   }}>
                     <span style={{
-                      fontSize: '1.5rem', fontWeight: 500, letterSpacing: '0.1em',
+                      fontSize: isMobile ? '1.25rem' : '1.5rem', fontWeight: 500, letterSpacing: '0.1em',
                       color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase'
                     }}>
                       {item.title}

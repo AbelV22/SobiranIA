@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -360,6 +361,7 @@ const visuals = [VisualDiagnosi, VisualInstallacio, VisualIntegracio];
 
 // ─── Single Scene (one step full-viewport panel) ─────────────
 function StepScene({ step, index }: { step: typeof steps[number]; index: number }) {
+  const isMobile = useIsMobile();
   const Visual = visuals[index];
 
   return (
@@ -410,18 +412,18 @@ function StepScene({ step, index }: { step: typeof steps[number]; index: number 
         pointerEvents: 'none',
       }} />
 
-      {/* Content wrapper */}
       <div style={{
         position: 'relative',
         zIndex: 2,
         width: '100%',
         maxWidth: 1240,
         margin: '0 auto',
-        padding: '0 clamp(32px, 6vw, 96px)',
+        padding: isMobile ? '0 24px' : '0 clamp(32px, 6vw, 96px)',
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: 'clamp(40px, 6vw, 100px)',
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+        gap: isMobile ? 32 : 'clamp(40px, 6vw, 100px)',
         alignItems: 'center',
+        marginTop: isMobile ? '12vh' : '0',
       }}>
         {/* LEFT — text column */}
         <div>
@@ -517,7 +519,7 @@ function StepScene({ step, index }: { step: typeof steps[number]; index: number 
         {/* RIGHT — visual column */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          height: 'clamp(280px, 45vh, 420px)',
+          height: isMobile ? '35vh' : 'clamp(280px, 45vh, 420px)',
           position: 'relative',
         }}>
           {/* Subtle frame */}
