@@ -61,19 +61,20 @@ export function HeroDark() {
 
     if (maquetteInnerRef.current) {
       gsap.to(maquetteInnerRef.current, {
-        rotateY: xN * 7, rotateX: -yN * 4,
-        duration: 1.6, ease: 'power2.out', overwrite: 'auto',
+        rotateY: xN * 12, rotateX: -yN * 8, // Increased rotation slightly for more dynamic feel
+        duration: 0.8, // Faster rotation response
+        ease: 'power2.out', overwrite: 'auto',
       });
     }
 
     if (fullLightRef.current && maquetteWrapperRef.current) {
       const r = maquetteWrapperRef.current.getBoundingClientRect();
       const lx = e.clientX - r.left, ly = e.clientY - r.top;
-      // Smoothly animate the flashlight mask position
+      // Animate custom properties directly (very fast, low latency)
       gsap.to(fullLightRef.current, {
         '--mouse-x': `${lx}px`,
         '--mouse-y': `${ly}px`,
-        duration: 0.6,
+        duration: 0.1, // Near instant follow gives zero perceived lag
         ease: 'power2.out',
         overwrite: 'auto',
       });
@@ -232,9 +233,15 @@ export function HeroDark() {
             position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
             height: '100%', width: 'auto', objectFit: 'contain',
             opacity: 0, transition: 'opacity 0.35s ease-out', zIndex: 5,
-            willChange: 'opacity',
-            maskImage: 'radial-gradient(circle 320px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(circle 320px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%)',
+            willChange: 'opacity, mask-position, -webkit-mask-position',
+            maskImage: 'radial-gradient(circle 320px at center, black 0%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(circle 320px at center, black 0%, transparent 100%)',
+            maskSize: '640px 640px',
+            WebkitMaskSize: '640px 640px',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'calc(var(--mouse-x, 50%) - 320px) calc(var(--mouse-y, 50%) - 320px)',
+            WebkitMaskPosition: 'calc(var(--mouse-x, 50%) - 320px) calc(var(--mouse-y, 50%) - 320px)',
           }} />
           {/* Wireframe */}
           <img src="/hero-dynamic-3.png" alt="" style={{
