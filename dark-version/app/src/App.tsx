@@ -15,13 +15,13 @@ function App() {
   const [isTechOpen, setIsTechOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-white">
+    <div className="min-h-dvh bg-[#08080A] text-white">
       <CursorGlow />
       <NoiseOverlay />
       <Navbar onTecnologiaClick={() => setIsTechOpen(true)} />
       <main style={{ position: 'relative' }}>
         <HeroDark />
-        <Suspense fallback={<div className="min-h-screen bg-[#08080A]" />}>
+        <Suspense fallback={<div className="min-h-dvh bg-[#08080A]" />}>
           <Km0Section />
           <BridgeStrip />
           <ProcessSection />

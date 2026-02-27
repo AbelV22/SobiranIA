@@ -368,7 +368,7 @@ function StepScene({ step, index }: { step: typeof steps[number]; index: number 
     <div
       style={{
         width: '100vw',
-        height: '100vh',
+        height: '100dvh',
         flexShrink: 0,
         position: 'relative',
         display: 'flex',
@@ -606,7 +606,7 @@ export function ProcessSection() {
       ref={containerRef}
       style={{
         position: 'relative',
-        height: '100vh',
+        height: '100dvh',
         background: '#030304',
         overflow: 'hidden',
       }}
@@ -615,7 +615,7 @@ export function ProcessSection() {
       <div style={{
         position: 'relative',
         width: '100vw',
-        height: '100vh',
+        height: '100dvh',
         overflow: 'hidden',
       }}>
 
@@ -658,7 +658,7 @@ export function ProcessSection() {
           style={{
             display: 'flex',
             width: '300vw',
-            height: '100vh',
+            height: '100dvh',
             willChange: 'transform',
           }}
         >

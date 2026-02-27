@@ -215,7 +215,7 @@ export function Km0Section() {
       ref={containerRef}
       style={{ position: 'relative', height: '240vh', background: '#030304', color: '#fff' }}
     >
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+      <div style={{ position: 'sticky', top: 0, height: '100dvh', overflow: 'hidden' }}>
 
         {/* Progress Bar */}
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'rgba(255,255,255,0.05)', zIndex: 50 }}>
@@ -438,7 +438,7 @@ export function Km0Section() {
                   key={item.id}
                   style={{
                     position: 'relative',
-                    height: isMobile ? (isActive ? 'auto' : '80px') : '100vh',
+                    height: isMobile ? (isActive ? 'auto' : '80px') : '100dvh',
                     // Flexbox expansion logic
                     flex: isActive ? (isMobile ? '1' : '3') : (isMobile ? '0 0 80px' : '1'),
                     minWidth: 0, // allow flex shrinking

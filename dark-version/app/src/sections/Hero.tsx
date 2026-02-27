@@ -59,7 +59,7 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative h-screen min-h-[640px] max-h-[960px] overflow-hidden bg-[#FAFAFA]"
+      className="relative h-dvh min-h-[640px] max-h-[960px] overflow-hidden bg-[#FAFAFA]"
     >
       {/* Ambient gradient — clean, no patterns */}
       <div className="absolute inset-0 pointer-events-none">

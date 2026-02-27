@@ -11,7 +11,7 @@ const PARTICLE_COUNT = 15000;
 
 function Particles() {
   const mesh = useRef<THREE.Points>(null);
-  
+
   // Generar geometría de partículas
   const { geometry, uniforms } = useMemo(() => {
     const geo = new THREE.BufferGeometry();
@@ -19,16 +19,16 @@ function Particles() {
     const colors = new Float32Array(PARTICLE_COUNT * 3);
     const sizes = new Float32Array(PARTICLE_COUNT);
     const randoms = new Float32Array(PARTICLE_COUNT);
-    
+
     // Targets para morphing
     const target0 = new Float32Array(PARTICLE_COUNT * 3); // Disperso
     const target1 = new Float32Array(PARTICLE_COUNT * 3); // Servidor
     const target2 = new Float32Array(PARTICLE_COUNT * 3); // Espiral
-    
+
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const i3 = i * 3;
       randoms[i] = Math.random();
-      
+
       // POSICIÓN INICIAL - Nube dispersa
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
@@ -36,16 +36,16 @@ function Particles() {
       positions[i3] = r * Math.sin(phi) * Math.cos(theta);
       positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       positions[i3 + 2] = r * Math.cos(phi);
-      
+
       // TARGET 0: Mismo que inicial
       target0[i3] = positions[i3];
       target0[i3 + 1] = positions[i3 + 1];
       target0[i3 + 2] = positions[i3 + 2];
-      
+
       // TARGET 1: SERVIDOR DETALLADO
       const partType = Math.random();
       let sx, sy, sz;
-      
+
       if (partType < 0.50) {
         // Caja principal
         sx = (Math.random() - 0.5) * 1.6;
@@ -72,12 +72,12 @@ function Particles() {
         sy = aR * Math.sin(aPhi) * Math.sin(aTheta);
         sz = aR * Math.cos(aPhi);
       }
-      
+
       // Añadir ruido orgánico
       target1[i3] = sx + (Math.random() - 0.5) * 0.1;
       target1[i3 + 1] = sy + (Math.random() - 0.5) * 0.1;
       target1[i3 + 2] = sz + (Math.random() - 0.5) * 0.1;
-      
+
       // TARGET 2: ESPIRAL COMPACTA (no se aleja mucho)
       const idx = i / PARTICLE_COUNT;
       const sRadius = Math.sqrt(idx) * 2.0; // Radio más pequeño
@@ -85,7 +85,7 @@ function Particles() {
       target2[i3] = sRadius * Math.cos(sAngle);
       target2[i3 + 1] = (idx - 0.5) * 2.0; // Altura más compacta
       target2[i3 + 2] = sRadius * Math.sin(sAngle);
-      
+
       // COLORES
       const cMix = Math.random();
       if (cMix > 0.90) {
@@ -95,10 +95,10 @@ function Particles() {
       } else {
         colors[i3] = 0.13; colors[i3 + 1] = 0.82; colors[i3 + 2] = 0.93;
       }
-      
+
       sizes[i] = 0.015 + Math.random() * 0.02;
     }
-    
+
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
@@ -106,16 +106,16 @@ function Particles() {
     geo.setAttribute('target0', new THREE.BufferAttribute(target0, 3));
     geo.setAttribute('target1', new THREE.BufferAttribute(target1, 3));
     geo.setAttribute('target2', new THREE.BufferAttribute(target2, 3));
-    
+
     const uni = {
       uTime: { value: 0 },
       uProgress: { value: 0 },
       uState: { value: 0 },
     };
-    
+
     return { geometry: geo, uniforms: uni };
   }, []);
-  
+
   // Scroll effect - SIN PINNING, flujo natural
   useEffect(() => {
     // Trigger de GSAP para mejor rendimiento
@@ -126,13 +126,13 @@ function Particles() {
       scrub: 0.5,
       onUpdate: (self) => {
         const progress = self.progress;
-        
+
         // FASES DEL MORPHING
         // 0-25%: Disperso -> Servidor (construcción)
         // 25-50%: Servidor estático (leer mensaje)
         // 50-75%: Servidor -> Espiral (transformación)
         // 75-100%: Espiral -> Disperso (disolución)
-        
+
         if (progress < 0.25) {
           uniforms.uState.value = 0;
           uniforms.uProgress.value = progress / 0.25;
@@ -148,17 +148,17 @@ function Particles() {
         }
       }
     });
-    
+
     return () => st.kill();
   }, []);
-  
+
   useFrame((state) => {
     if (!mesh.current) return;
     const material = mesh.current.material as THREE.ShaderMaterial;
     material.uniforms.uTime.value = state.clock.elapsedTime;
     mesh.current.rotation.y = state.clock.elapsedTime * 0.02;
   });
-  
+
   const vertexShader = `
     uniform float uTime;
     uniform float uProgress;
@@ -210,7 +210,7 @@ function Particles() {
       vAlpha = smoothstep(-15.0, -3.0, mvPosition.z) * 0.9;
     }
   `;
-  
+
   const fragmentShader = `
     varying vec3 vColor;
     varying float vAlpha;
@@ -227,7 +227,7 @@ function Particles() {
       gl_FragColor = vec4(vColor * glow, glow * vAlpha);
     }
   `;
-  
+
   return (
     <points ref={mesh} geometry={geometry} position={[2, 0, 0]}>
       <shaderMaterial
@@ -246,7 +246,7 @@ export function AlgorithmicHero() {
   return (
     <div id="hero-wrapper" className="relative w-full h-[200vh] z-0">
       {/* Canvas sticky para que se quede fijo durante el scroll */}
-      <div className="sticky top-0 w-full h-screen">
+      <div className="sticky top-0 w-full h-dvh">
         <Canvas
           camera={{ position: [2, 0, 14], fov: 45 }}
           dpr={[1, 2]}
@@ -254,14 +254,14 @@ export function AlgorithmicHero() {
           style={{ background: '#0A0A0F' }}
         >
           <ambientLight intensity={0.5} />
-          
+
           <Particles />
-          
+
           <EffectComposer>
             <Bloom intensity={2} luminanceThreshold={0.1} />
           </EffectComposer>
         </Canvas>
-        
+
         {/* Gradientes para integración con texto */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F] via-[#0A0A0F]/70 to-transparent pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0A0A0F]/50 pointer-events-none" />
