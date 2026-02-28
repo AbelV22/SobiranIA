@@ -127,8 +127,8 @@ const accordionItems = [
 // ─── Globe wrapper ───
 const GlobeWrapper = memo(function GlobeWrapper({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const [progress, setProgress] = useState(0);
-  // Globe morphs during the transition from Block A → Block B (0.40→0.58)
-  const mode = useTransform(scrollYProgress, [0.40, 0.58], [0, 1]);
+  // Globe morphs during the transition from Block A → Block B (0.22→0.35)
+  const mode = useTransform(scrollYProgress, [0.22, 0.35], [0, 1]);
   useMotionValueEvent(mode, 'change', (v) => setProgress(Math.max(0, Math.min(1, v))));
   return <Km0Globe3D scrollProgress={progress} />;
 });
@@ -163,47 +163,47 @@ export function Km0Section() {
 
   const barWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   // Globe fades out as Block A transitions
-  const globeOpacity = useTransform(scrollYProgress, [0, 0.35, 0.45], [1, 1, 0]);
+  const globeOpacity = useTransform(scrollYProgress, [0, 0.22, 0.30], [1, 1, 0]);
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    // 1. Block A Opacity — fades out 0.35→0.45
+    // 1. Block A Opacity — fades out 0.22→0.30
     let newA = 1;
-    if (v > 0.35) {
-      newA = 1 - ((v - 0.35) / (0.45 - 0.35));
+    if (v > 0.22) {
+      newA = 1 - ((v - 0.22) / (0.30 - 0.22));
       if (newA < 0) newA = 0;
     }
     setBlockAOpacity(newA);
 
-    // 2. Block M (pivot) — bell curve: in 0.38→0.45, peak 0.45→0.50, out 0.50→0.56
+    // 2. Block M (pivot) — bell curve: in 0.27→0.34, peak 0.34→0.40, out 0.40→0.48
     let newM = 0;
-    if (v >= 0.38 && v < 0.45) {
-      newM = (v - 0.38) / (0.45 - 0.38);
-    } else if (v >= 0.45 && v < 0.50) {
+    if (v >= 0.27 && v < 0.34) {
+      newM = (v - 0.27) / (0.34 - 0.27);
+    } else if (v >= 0.34 && v < 0.40) {
       newM = 1;
-    } else if (v >= 0.50 && v < 0.56) {
-      newM = 1 - ((v - 0.50) / (0.56 - 0.50));
+    } else if (v >= 0.40 && v < 0.48) {
+      newM = 1 - ((v - 0.40) / (0.48 - 0.40));
     }
     setBlockMOpacity(Math.max(0, Math.min(1, newM)));
 
-    // 3. Block B Opacity — fades in 0.53→0.62
+    // 3. Block B Opacity — fades in 0.45→0.52
     let newB = 0;
-    if (v > 0.53) {
-      newB = (v - 0.53) / (0.62 - 0.53);
+    if (v > 0.45) {
+      newB = (v - 0.45) / (0.52 - 0.45);
       if (newB > 1) newB = 1;
     }
     setBlockBOpacity(newB);
 
     // 3. Active Accordion Logic
     let newItem = 0;
-    if (v >= 0.85) newItem = 2;
-    else if (v >= 0.70) newItem = 1;
+    if (v >= 0.82) newItem = 2;
+    else if (v >= 0.65) newItem = 1;
     else newItem = 0;
     if (newItem !== activeItem) setActiveItem(newItem);
 
     // 4. Sequential bullets
-    setBullet0(v >= 0.05);
-    setBullet1(v >= 0.13);
-    setBullet2(v >= 0.22);
+    setBullet0(v >= 0.03);
+    setBullet1(v >= 0.08);
+    setBullet2(v >= 0.14);
   });
 
   const showBlockA = blockAOpacity > 0.05;
@@ -213,7 +213,7 @@ export function Km0Section() {
   return (
     <section
       ref={containerRef}
-      style={{ position: 'relative', height: '240vh', background: '#030304', color: '#fff' }}
+      style={{ position: 'relative', height: '400vh', background: '#030304', color: '#fff' }}
     >
       <div style={{ position: 'sticky', top: 0, height: '100dvh', overflow: 'hidden' }}>
 

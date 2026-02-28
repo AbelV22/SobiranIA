@@ -105,7 +105,7 @@ export function TechGridSection() {
   const { ref: sectionRef, isVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section id="tecnologia" className="relative py-12 md:py-20 bg-[#08080A] overflow-hidden">
+    <section id="tecnologia" className="relative py-8 md:py-20 bg-[#08080A] overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[100px]" />
         <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] rounded-full bg-purple-500/5 blur-[100px]" />
@@ -113,7 +113,7 @@ export function TechGridSection() {
 
       <div ref={sectionRef} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className={`text-center mb-10 md:mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          className={`text-center mb-6 md:mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-900/10 border border-cyan-500/20 mb-4 backdrop-blur-sm">

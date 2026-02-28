@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Server } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface NavbarProps {
   onTecnologiaClick: () => void;
@@ -11,6 +12,17 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('');
   const navRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const isMobile = useIsMobile();
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto'; // Reset
+    }
+    return () => { document.body.style.overflow = 'auto'; }; // Cleanup
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
@@ -67,8 +79,8 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
         boxShadow: isScrolled ? '0 1px 0 rgba(0,188,212,0.06)' : 'none',
       }}
     >
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 48px 0 32px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '48px' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: isMobile ? '0 16px' : '0 48px 0 32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: isMobile ? '56px' : '48px' }}>
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

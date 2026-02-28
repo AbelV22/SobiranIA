@@ -423,7 +423,7 @@ function StepScene({ step, index }: { step: typeof steps[number]; index: number 
         gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
         gap: isMobile ? 32 : 'clamp(40px, 6vw, 100px)',
         alignItems: 'center',
-        marginTop: isMobile ? '12vh' : '0',
+        marginTop: isMobile ? '4vh' : '0',
       }}>
         {/* LEFT — text column */}
         <div>

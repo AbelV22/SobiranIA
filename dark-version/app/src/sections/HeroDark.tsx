@@ -53,6 +53,7 @@ export function HeroDark() {
   }, []);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (isMobile) return; // Disable hover 3D tilt on mobile
     if (!heroRef.current) return;
     const rect = heroRef.current.getBoundingClientRect();
     mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
@@ -154,7 +155,7 @@ export function HeroDark() {
         overflow: 'hidden',
         background: '#07070A',
         display: 'grid',
-        gridTemplateRows: isMobile ? '48px 1fr auto' : '48px 1fr min-content',
+        gridTemplateRows: isMobile ? '72px 1fr auto' : '48px 1fr min-content',
         gridTemplateColumns: '1fr',
       }}
     >

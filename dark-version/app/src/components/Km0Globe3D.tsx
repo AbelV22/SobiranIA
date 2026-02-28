@@ -1,5 +1,6 @@
 import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
 import Globe from 'react-globe.gl';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 
 // ==================== GITHUB-STYLE SCROLLYTELLING GLOBE ====================
@@ -54,6 +55,7 @@ export function Km0Globe3D({ scrollProgress = 0 }: Km0Globe3DProps) {
     const globeRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [dimensions, setDimensions] = useState({ width: 1, height: 1 });
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -216,7 +218,7 @@ export function Km0Globe3D({ scrollProgress = 0 }: Km0Globe3DProps) {
                 height={dimensions.height}
 
                 // Performance
-                rendererConfig={{ antialias: true, alpha: true }}
+                rendererConfig={{ antialias: !isMobile, alpha: true }}
             />
         </div>
     );
