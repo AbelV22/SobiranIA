@@ -155,7 +155,7 @@ export function HeroDark() {
         overflow: 'hidden',
         background: '#07070A',
         display: 'grid',
-        gridTemplateRows: isMobile ? '72px 1fr auto' : '48px 1fr min-content',
+        gridTemplateRows: isMobile ? '56px 1fr auto' : '48px 1fr min-content',
         gridTemplateColumns: '1fr',
       }}
     >
@@ -311,7 +311,7 @@ export function HeroDark() {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: isMobile ? '16px 24px 80px' : '16px 24px 48px', // Added vertical padding
+        padding: isMobile ? '0 24px 40px' : '16px 24px 48px', // Reduced vertical padding
         gap: 10,
         background: 'linear-gradient(to bottom, transparent 0%, rgba(7,7,10,0.6) 15%, #07070A 40%, #07070A 100%)',
       }}>

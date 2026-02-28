@@ -195,22 +195,28 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Dropdown */}
       <div
         style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(8, 8, 10, 0.98)',
-          backdropFilter: 'blur(20px)',
-          zIndex: 50,
+          position: 'absolute',
+          top: isMobile ? '56px' : '48px',
+          left: 0,
+          right: 0,
+          background: 'rgba(8, 8, 10, 0.95)',
+          backdropFilter: 'blur(24px)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          zIndex: 40,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          gap: '32px',
-          transition: 'opacity 0.4s ease-in-out, visibility 0.4s',
+          justifyContent: 'flex-start',
+          gap: '24px',
+          padding: '32px 24px 40px',
+          transition: 'all 0.4s ease-in-out',
           opacity: isMobileMenuOpen ? 1 : 0,
           visibility: isMobileMenuOpen ? 'visible' : 'hidden',
+          transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
+          pointerEvents: isMobileMenuOpen ? 'auto' : 'none',
         }}
       >
         {scrollNavItems.map((item, index) => (

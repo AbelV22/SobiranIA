@@ -561,6 +561,7 @@ function StepScene({ step, index }: { step: typeof steps[number]; index: number 
 
 // ─── Main section ─────────────────────────────────────────────
 export function ProcessSection() {
+  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
@@ -578,10 +579,10 @@ export function ProcessSection() {
       scrollTrigger: {
         trigger: containerRef.current,
         pin: true, // Pin the container, so it acts like a sticky container
-        scrub: 1, // Smooth scrubbing (1 second catchup)
+        scrub: isMobile ? 0.1 : 1, // Direct tracking for mobile, smooth scrubbing for desktop
         start: 'top top',
         end: () => `+=${containerRef.current?.offsetWidth || window.innerWidth * 3}`, // scroll distance proportional to width
-        snap: {
+        snap: isMobile ? undefined : {
           snapTo: 1 / (sectionsCount - 1), // snap to 0, 0.5, 1
           duration: { min: 0.2, max: 0.6 },
           delay: 0.1, // wait 0.1s after scroll stops before snapping
