@@ -240,7 +240,7 @@ export function Km0Section() {
           <div style={{
             display: 'flex', alignItems: 'center', height: '100%',
             maxWidth: 1200, margin: '0 auto',
-            padding: isMobile ? '100px 24px 0 24px' : '72px 40px 0 48px',
+            padding: isMobile ? '72px 20px 0 20px' : '72px 40px 0 48px',
             gap: isMobile ? 32 : 60,
             flexDirection: isMobile ? 'column' : 'row',
           }}>

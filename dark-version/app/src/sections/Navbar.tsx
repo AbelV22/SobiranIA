@@ -196,26 +196,38 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
       </div>
 
       {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => setIsMobileMenuOpen(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 35,
+            background: 'transparent',
+          }}
+        />
+      )}
       <div
         style={{
           position: 'absolute',
           top: isMobile ? '56px' : '48px',
           left: 0,
           right: 0,
-          background: 'rgba(8, 8, 10, 0.95)',
+          background: 'rgba(8, 8, 10, 0.97)',
           backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
           borderBottom: '1px solid rgba(255,255,255,0.06)',
           zIndex: 40,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          gap: '24px',
-          padding: '32px 24px 40px',
-          transition: 'all 0.4s ease-in-out',
+          gap: '16px',
+          padding: '24px 24px 28px',
+          transition: 'all 0.35s cubic-bezier(0.22,1,0.36,1)',
           opacity: isMobileMenuOpen ? 1 : 0,
           visibility: isMobileMenuOpen ? 'visible' : 'hidden',
-          transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
+          transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-8px)',
           pointerEvents: isMobileMenuOpen ? 'auto' : 'none',
         }}
       >
@@ -226,13 +238,14 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
             style={{
               background: 'none',
               border: 'none',
-              fontSize: '24px',
-              fontWeight: 600,
+              fontSize: '18px',
+              fontWeight: 500,
               color: '#FFFFFF',
               opacity: isMobileMenuOpen ? 1 : 0,
-              transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-              transition: `all 0.4s ease-out ${index * 0.1}s`,
+              transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(12px)',
+              transition: `all 0.3s ease-out ${index * 0.06}s`,
               cursor: 'pointer',
+              padding: '8px 0',
             }}
           >
             {item.label}
@@ -248,16 +261,17 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
           style={{
             background: 'none',
             border: 'none',
-            fontSize: '24px',
-            fontWeight: 600,
+            fontSize: '18px',
+            fontWeight: 500,
             color: '#06b6d4',
             opacity: isMobileMenuOpen ? 1 : 0,
-            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-            transition: `all 0.4s ease-out ${scrollNavItems.length * 0.1}s`,
+            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(12px)',
+            transition: `all 0.3s ease-out ${scrollNavItems.length * 0.06}s`,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: 8,
+            padding: '8px 0',
           }}
         >
           Tecnologia
@@ -269,19 +283,19 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
         <button
           onClick={() => scrollToSection('contacte')}
           style={{
-            marginTop: '24px',
+            marginTop: '8px',
             background: '#00BCD4',
             color: '#08080A',
             border: 'none',
-            fontSize: '18px',
+            fontSize: '15px',
             fontWeight: 600,
-            padding: '16px 32px',
+            padding: '12px 28px',
             borderRadius: '9999px',
             opacity: isMobileMenuOpen ? 1 : 0,
-            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-            transition: `all 0.4s ease-out ${(scrollNavItems.length + 1) * 0.1}s`,
+            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(12px)',
+            transition: `all 0.3s ease-out ${(scrollNavItems.length + 1) * 0.06}s`,
             cursor: 'pointer',
-            boxShadow: '0 0 20px rgba(0, 188, 212, 0.3)',
+            boxShadow: '0 0 16px rgba(0, 188, 212, 0.25)',
           }}
         >
           Diagnosi gratuïta

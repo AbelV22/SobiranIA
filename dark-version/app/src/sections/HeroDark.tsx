@@ -41,7 +41,8 @@ export function HeroDark() {
   }, []);
 
   useEffect(() => {
-    setParticles(Array.from({ length: 22 }, (_, i) => ({
+    const count = isMobile ? 8 : 22;
+    setParticles(Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
@@ -50,7 +51,7 @@ export function HeroDark() {
       vx: (Math.random() - 0.5) * 0.12,
       vy: (Math.random() - 0.5) * 0.12,
     })));
-  }, []);
+  }, [isMobile]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isMobile) return; // Disable hover 3D tilt on mobile
