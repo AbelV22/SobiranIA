@@ -92,8 +92,8 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
             </span>
           </button>
 
-          {/* Desktop Nav */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="hidden md:flex">
+          {/* Desktop Nav — hidden on mobile, flex on md+ */}
+          <div className="hidden md:flex items-center gap-1">
 
             {/* Scroll-based items */}
             {scrollNavItems.map((item) => (

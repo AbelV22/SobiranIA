@@ -599,7 +599,7 @@ export function ProcessSection() {
       scrollTween.scrollTrigger?.kill();
       scrollTween.kill();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
