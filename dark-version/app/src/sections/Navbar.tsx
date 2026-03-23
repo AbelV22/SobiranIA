@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Server } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Link } from 'react-router-dom';
 
 interface NavbarProps {
   onTecnologiaClick: () => void;
@@ -48,6 +49,11 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
   }, []);
 
   const scrollToSection = (id: string) => {
+    if (window.location.pathname !== '/') {
+      // On non-home pages, navigate home then scroll
+      window.location.href = `/#${id}`;
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -81,16 +87,21 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
     >
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: isMobile ? '0 16px' : '0 48px 0 32px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: isMobile ? '56px' : '48px' }}>
-          {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'none', border: 'none', cursor: 'pointer', zIndex: 60 }}
+          {/* Logo — navigates home on blog pages, scrolls to top on home */}
+          <Link
+            to="/"
+            onClick={() => {
+              if (window.location.pathname === '/') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', zIndex: 60 }}
           >
             <Server style={{ width: 20, height: 20, color: '#00BCD4' }} />
             <span style={{ fontSize: '18px', fontWeight: 600, color: '#FFFFFF', letterSpacing: '-0.02em', transition: 'color 0.5s' }}>
               Sobiran<span style={{ color: '#00BCD4' }}>IA</span>
             </span>
-          </button>
+          </Link>
 
           {/* Desktop Nav — hidden on mobile, flex on md+ */}
           <div className="hidden md:flex items-center gap-1">
@@ -140,11 +151,27 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
               className="hover:text-white hover:bg-white/5"
             >
               Tecnologia
-              {/* Small arrow-up-right hint */}
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ opacity: 0.4 }}>
                 <path d="M2 8L8 2M8 2H4M8 2V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
+
+            {/* Blog */}
+            <Link
+              to="/blog"
+              style={{
+                fontSize: '14px',
+                fontWeight: 500,
+                padding: '8px 16px',
+                borderRadius: '8px',
+                transition: 'all 0.3s',
+                color: 'rgba(255,255,255,0.6)',
+                textDecoration: 'none',
+              }}
+              className="hover:text-white hover:bg-white/5"
+            >
+              Blog
+            </Link>
 
             <div style={{ marginLeft: '16px', paddingLeft: '16px', borderLeft: `1px solid rgba(255,255,255,0.08)`, display: isScrolled ? 'block' : 'none' }}>
               <button
@@ -279,6 +306,24 @@ export function Navbar({ onTecnologiaClick }: NavbarProps) {
             <path d="M2 8L8 2M8 2H4M8 2V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
+
+        {/* Blog in mobile menu */}
+        <Link
+          to="/blog"
+          onClick={() => setIsMobileMenuOpen(false)}
+          style={{
+            fontSize: '18px',
+            fontWeight: 500,
+            color: '#FFFFFF',
+            opacity: isMobileMenuOpen ? 1 : 0,
+            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(12px)',
+            transition: `all 0.3s ease-out ${(scrollNavItems.length + 1) * 0.06}s`,
+            textDecoration: 'none',
+            padding: '8px 0',
+          }}
+        >
+          Blog
+        </Link>
 
         <button
           onClick={() => scrollToSection('contacte')}

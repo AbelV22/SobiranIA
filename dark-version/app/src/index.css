@@ -4,6 +4,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Blog article typography */
+.blog-article h2 {
+  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.92);
+  margin: 40px 0 16px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.blog-article h3 {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  margin: 32px 0 12px;
+  letter-spacing: -0.01em;
+}
+.blog-article p {
+  font-size: 16px;
+  color: rgba(161,161,170,0.9);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+.blog-article ul {
+  margin: 16px 0 24px 0;
+  padding-left: 20px;
+}
+.blog-article li {
+  font-size: 15px;
+  color: rgba(161,161,170,0.85);
+  line-height: 1.7;
+  margin-bottom: 8px;
+  list-style-type: disc;
+}
+.blog-article li::marker {
+  color: #06b6d4;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

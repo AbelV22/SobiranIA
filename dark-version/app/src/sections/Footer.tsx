@@ -1,5 +1,6 @@
 import { Server, MapPin, Phone, Mail, Linkedin, Twitter } from 'lucide-react';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,7 +15,7 @@ export function Footer() {
     ],
     empresa: [
       { label: 'Qui som', href: '#' },
-      { label: 'Blog', href: '#' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Partners', href: '#' },
       { label: 'Contacte', href: '#contacte' },
     ],
@@ -98,13 +99,24 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               {footerLinks.empresa.map((link) => (
                 <li key={link.label}>
-                  <button
-                    onClick={() => scrollToSection(link.href)}
-                    className="text-[#6B6B78] hover:text-[#F5F5F7] transition-colors duration-200 relative group"
-                  >
-                    {link.label}
-                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-[#22D3EE] group-hover:w-full transition-all duration-300" />
-                  </button>
+                  {link.href.startsWith('/') ? (
+                    <Link
+                      to={link.href}
+                      className="text-[#6B6B78] hover:text-[#F5F5F7] transition-colors duration-200 relative group"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      {link.label}
+                      <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-[#22D3EE] group-hover:w-full transition-all duration-300" />
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => scrollToSection(link.href)}
+                      className="text-[#6B6B78] hover:text-[#F5F5F7] transition-colors duration-200 relative group"
+                    >
+                      {link.label}
+                      <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-[#22D3EE] group-hover:w-full transition-all duration-300" />
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
