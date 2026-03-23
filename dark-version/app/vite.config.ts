@@ -1,6 +1,7 @@
 import path from "path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import { cloudflare } from "@cloudflare/vite-plugin";
 // kimi-plugin-inspect-react disabled: injects DOM attributes that cause
 // React 19 insertBefore/removeChild errors during reconciliation
 // import { inspectAttr } from 'kimi-plugin-inspect-react'
@@ -8,7 +9,7 @@ import { defineConfig } from "vite"
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
-  plugins: [react()],
+  plugins: [react(), cloudflare()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
