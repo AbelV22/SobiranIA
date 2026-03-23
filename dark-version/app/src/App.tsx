@@ -7,7 +7,9 @@ import { CursorGlow } from './components/CursorGlow';
 const Km0Section = lazy(() => import('./sections/Km0Section').then(module => ({ default: module.Km0Section })));
 const BridgeStrip = lazy(() => import('./components/BridgeStrip').then(module => ({ default: module.BridgeStrip })));
 const ProcessSection = lazy(() => import('./sections/ProcessSection').then(module => ({ default: module.ProcessSection })));
+const SocialProofSection = lazy(() => import('./sections/SocialProofSection').then(module => ({ default: module.SocialProofSection })));
 const ContactSection = lazy(() => import('./sections/ContactSection').then(module => ({ default: module.ContactSection })));
+const FAQSection = lazy(() => import('./sections/FAQSection').then(module => ({ default: module.FAQSection })));
 const Footer = lazy(() => import('./sections/Footer').then(module => ({ default: module.Footer })));
 const TechPageOverlay = lazy(() => import('./components/TechPageOverlay').then(module => ({ default: module.TechPageOverlay })));
 
@@ -25,7 +27,9 @@ function App() {
           <Km0Section />
           <BridgeStrip />
           <ProcessSection />
+          <SocialProofSection />
           <ContactSection />
+          <FAQSection />
         </Suspense>
       </main>
       <Suspense fallback={null}>

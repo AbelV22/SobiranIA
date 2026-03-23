@@ -162,48 +162,48 @@ export function Km0Section() {
   });
 
   const barWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-  // Globe fades out as Block A transitions
-  const globeOpacity = useTransform(scrollYProgress, [0, 0.22, 0.30], [1, 1, 0]);
+  // Globe stays fully visible while bullets appear, fades with Block A
+  const globeOpacity = useTransform(scrollYProgress, [0, 0.32, 0.40], [1, 1, 0]);
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    // 1. Block A Opacity — fades out 0.22→0.30
+    // 1. Block A (bullets + globe) — stays full until 0.32, fades out 0.32→0.40
     let newA = 1;
-    if (v > 0.22) {
-      newA = 1 - ((v - 0.22) / (0.30 - 0.22));
+    if (v > 0.32) {
+      newA = 1 - ((v - 0.32) / (0.40 - 0.32));
       if (newA < 0) newA = 0;
     }
     setBlockAOpacity(newA);
 
-    // 2. Block M (pivot) — bell curve: in 0.27→0.34, peak 0.34→0.40, out 0.40→0.48
+    // 2. Block M (pivot) — tight: in 0.38→0.42, peak 0.42→0.48, out 0.48→0.52
     let newM = 0;
-    if (v >= 0.27 && v < 0.34) {
-      newM = (v - 0.27) / (0.34 - 0.27);
-    } else if (v >= 0.34 && v < 0.40) {
+    if (v >= 0.38 && v < 0.42) {
+      newM = (v - 0.38) / (0.42 - 0.38);
+    } else if (v >= 0.42 && v < 0.48) {
       newM = 1;
-    } else if (v >= 0.40 && v < 0.48) {
-      newM = 1 - ((v - 0.40) / (0.48 - 0.40));
+    } else if (v >= 0.48 && v < 0.52) {
+      newM = 1 - ((v - 0.48) / (0.52 - 0.48));
     }
     setBlockMOpacity(Math.max(0, Math.min(1, newM)));
 
-    // 3. Block B Opacity — fades in 0.45→0.52
+    // 3. Block B — fades in 0.50→0.55 (immediately after M)
     let newB = 0;
-    if (v > 0.45) {
-      newB = (v - 0.45) / (0.52 - 0.45);
+    if (v > 0.50) {
+      newB = (v - 0.50) / (0.55 - 0.50);
       if (newB > 1) newB = 1;
     }
     setBlockBOpacity(newB);
 
-    // 3. Active Accordion Logic
+    // 4. Active Accordion Logic — spread across remaining scroll
     let newItem = 0;
-    if (v >= 0.82) newItem = 2;
+    if (v >= 0.80) newItem = 2;
     else if (v >= 0.65) newItem = 1;
     else newItem = 0;
     if (newItem !== activeItem) setActiveItem(newItem);
 
-    // 4. Sequential bullets
-    setBullet0(v >= 0.03);
-    setBullet1(v >= 0.08);
-    setBullet2(v >= 0.14);
+    // 5. Sequential bullets — appear while globe stays visible (0→0.30)
+    setBullet0(v >= 0.05);
+    setBullet1(v >= 0.13);
+    setBullet2(v >= 0.22);
   });
 
   const showBlockA = blockAOpacity > 0.05;
@@ -213,7 +213,7 @@ export function Km0Section() {
   return (
     <section
       ref={containerRef}
-      style={{ position: 'relative', height: '400vh', background: '#030304', color: '#fff' }}
+      style={{ position: 'relative', height: '300vh', background: '#030304', color: '#fff' }}
     >
       <div style={{ position: 'sticky', top: 0, height: '100dvh', overflow: 'hidden' }}>
 

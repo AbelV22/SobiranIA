@@ -8,8 +8,8 @@ export function Footer() {
   const footerLinks = {
     serveis: [
       { label: 'Diagnosi IA', href: '#proces' },
-      { label: 'Instal·lacio', href: '#proces' },
-      { label: 'Formacio', href: '#proces' },
+      { label: 'Instal·lació', href: '#proces' },
+      { label: 'Formació', href: '#proces' },
       { label: 'Suport', href: '#serveis' },
     ],
     empresa: [
@@ -19,7 +19,7 @@ export function Footer() {
       { label: 'Contacte', href: '#contacte' },
     ],
     legal: [
-      { label: 'Politica de privacitat', href: '#' },
+      { label: 'Política de privacitat', href: '#' },
       { label: 'Termes de servei', href: '#' },
       { label: 'Cookies', href: '#' },
     ],
@@ -55,7 +55,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-[#6B6B78] mb-6 max-w-sm text-sm leading-relaxed">
-              Servei integral d'intel·ligencia artificial local per a empreses de Barcelona.
+              Servei integral d'intel·ligència artificial local per a empreses de Barcelona.
               Dades sota el teu control.
             </p>
             <div className="space-y-2">
