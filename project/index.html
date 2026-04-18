@@ -1695,6 +1695,101 @@ footer .grid { row-gap: 48px; }
 
 /* numeric count-up */
 .count { font-variant-numeric: tabular-nums; }
+
+/* ---- Mobile nav: burger + drawer ---- */
+.nav-burger {
+  display: none;
+  width: 40px; height: 40px;
+  background: transparent;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  z-index: 60;
+  flex: 0 0 auto;
+}
+.nav-burger span {
+  position: absolute;
+  left: 11px;
+  width: 18px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform .25s ease, opacity .2s ease, top .25s ease;
+}
+.nav-burger span:nth-child(1) { top: 14px; }
+.nav-burger span:nth-child(2) { top: 19px; }
+.nav-burger span:nth-child(3) { top: 24px; }
+.nav-burger.open span:nth-child(1) { top: 19px; transform: rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { top: 19px; transform: rotate(-45deg); }
+
+.nav-drawer-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 45;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+.nav-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.nav-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(320px, 85vw);
+  background: var(--bg);
+  border-left: 1px solid var(--hair);
+  z-index: 55;
+  transform: translateX(100%);
+  transition: transform .3s ease;
+  overflow-y: auto;
+  visibility: hidden;
+}
+.nav-drawer.open { transform: translateX(0); visibility: visible; }
+.nav-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 80px 28px 28px;
+}
+.nav-drawer a {
+  font-size: 17px;
+  color: var(--ink);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hair);
+  text-decoration: none;
+}
+.nav-drawer-lang {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 22px;
+  margin-top: 8px;
+}
+.nav-drawer-lang > span {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.nav-drawer-lang .lang-switch { display: inline-flex; }
+
+@media (max-width: 960px) {
+  .nav-cta { gap: 10px; }
+}
+@media (max-width: 720px) {
+  .nav-cta > #langSwitch { display: none !important; }
+  .nav-burger { display: inline-block; }
+  nav.top .grid { height: 60px; }
+  .logo { font-size: 17px; }
+}
+@media (max-width: 520px) {
+  .nav-cta .btn { padding: 8px 12px; font-size: 12px; }
+  .nav-cta .btn .arrow { display: none; }
+  .logo { font-size: 15px; gap: 6px; }
+  .logo .mark { width: 16px; height: 16px; }
+}
 </style>
 
 <script>
@@ -3251,5 +3346,36 @@ window.__HERO_IMGS = { modern: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABA
 })();
 </script>
 
+<script>
+// Mobile nav drawer
+(function(){
+  const burger = document.getElementById('navBurger');
+  const drawer = document.getElementById('navDrawer');
+  const backdrop = document.getElementById('navDrawerBackdrop');
+  if (!burger || !drawer) return;
+  const toggle = (force) => {
+    const open = force != null ? force : !drawer.classList.contains('open');
+    drawer.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    if (backdrop) backdrop.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  burger.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+  if (backdrop) backdrop.addEventListener('click', () => toggle(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggle(false); });
+  // sync mobile lang switch with main langSwitch
+  const mobileLangBtns = document.querySelectorAll('#langSwitchMobile button');
+  mobileLangBtns.forEach(b => {
+    b.addEventListener('click', () => {
+      const target = document.querySelector('#langSwitch button[data-lang="'+b.dataset.lang+'"]');
+      if (target) target.click();
+      mobileLangBtns.forEach(x => x.classList.toggle('active', x.dataset.lang === b.dataset.lang));
+    });
+  });
+})();
+</script>
 
 </body></html>
