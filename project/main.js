@@ -3,6 +3,21 @@
   const $ = (s, c=document) => c.querySelector(s);
   const $$ = (s, c=document) => [...c.querySelectorAll(s)];
 
+  // ---- Mobile nav drawer ----
+  const burger = $('#navBurger');
+  const drawer = $('#navDrawer');
+  if (burger && drawer) {
+    const toggle = (force) => {
+      const open = force != null ? force : !drawer.classList.contains('open');
+      drawer.classList.toggle('open', open);
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    };
+    burger.addEventListener('click', () => toggle());
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+  }
+
   // ---- Tweaks panel availability + activation ----
   const tweaks = $('#tweaks');
   window.addEventListener('message', (e) => {
@@ -73,14 +88,14 @@
       if (dict[k] != null) el.innerHTML = dict[k];
     });
     // lang switch in nav
-    $$('#langSwitch button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+    $$('#langSwitch button, #langSwitchMobile button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
     setSeg('lang', l);
     persist();
     // rerun demo typewriter
     startTyper();
   }
 
-  $$('#langSwitch button').forEach(b => {
+  $$('#langSwitch button, #langSwitchMobile button').forEach(b => {
     b.addEventListener('click', () => setLang(b.dataset.lang));
   });
 
