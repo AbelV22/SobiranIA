@@ -525,12 +525,13 @@ section { position: relative; }
   .nav-cta .btn { padding: 8px 12px; font-size: 12px; white-space: nowrap; }
   .lang-switch button { padding: 6px 8px; font-size: 11px; }
 }
+@media (max-width: 720px) {
+  .lang-switch { display: none; }
+}
 @media (max-width: 520px) {
   .logo { font-size: 16px; gap: 6px; }
   .logo .mark { width: 16px; height: 16px; }
   .nav-cta { gap: 6px; }
   .nav-cta .btn .arrow { display: none; }
-  .nav-cta .btn { padding: 7px 10px; font-size: 11px; }
-  .lang-switch { font-size: 10px; }
-  .lang-switch button { padding: 5px 7px; }
+  .nav-cta .btn { padding: 7px 12px; font-size: 12px; }
 }
