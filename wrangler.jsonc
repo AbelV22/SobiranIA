@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "sobirania",
+  "compatibility_date": "2025-04-01",
+  "assets": {
+    "directory": "./project",
+    "not_found_handling": "single-page-application"
+  }
+}
