@@ -1731,12 +1731,14 @@ const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
         <button data-lang="es" class="">ES</button>
       </div>
       <a href="#cta" class="btn btn-primary" data-i18n="nav.cta">Sol·licitar demo</a>
-      <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+      <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false" type="button">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+</nav>
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <div class="nav-drawer-inner">
     <a href="#seguretat" data-i18n="nav.security">Seguretat</a>
     <a href="#funcionalitats" data-i18n="nav.features">Funcionalitats</a>
     <a href="#fundadors" data-i18n="nav.founders" style="color:var(--brass)">Fundadors</a>
@@ -1746,12 +1748,13 @@ const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
     <div class="nav-drawer-lang">
       <span>Idioma</span>
       <div class="lang-switch" id="langSwitchMobile">
-        <button data-lang="ca" class="active">CA</button>
-        <button data-lang="es" class="">ES</button>
+        <button data-lang="ca" class="active" type="button">CA</button>
+        <button data-lang="es" class="" type="button">ES</button>
       </div>
     </div>
   </div>
-</nav>
+</div>
+<div class="nav-drawer-backdrop" id="navDrawerBackdrop"></div>
 
 <!-- HERO -->
 <section class="hero" id="top">

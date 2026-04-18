@@ -6,16 +6,21 @@
   // ---- Mobile nav drawer ----
   const burger = $('#navBurger');
   const drawer = $('#navDrawer');
+  const backdrop = $('#navDrawerBackdrop');
   if (burger && drawer) {
     const toggle = (force) => {
       const open = force != null ? force : !drawer.classList.contains('open');
       drawer.classList.toggle('open', open);
       burger.classList.toggle('open', open);
+      if (backdrop) backdrop.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.style.overflow = open ? 'hidden' : '';
     };
-    burger.addEventListener('click', () => toggle());
+    burger.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
     drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+    if (backdrop) backdrop.addEventListener('click', () => toggle(false));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggle(false); });
   }
 
   // ---- Tweaks panel availability + activation ----
