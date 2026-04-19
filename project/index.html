@@ -1696,6 +1696,213 @@ footer .grid { row-gap: 48px; }
 /* numeric count-up */
 .count { font-variant-numeric: tabular-nums; }
 
+/* ---- Plans section ---- */
+.plans { padding: 120px 0 80px; border-top: 1px solid var(--hair); }
+.plans .sec-head { margin-bottom: 60px; }
+.plans-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+}
+.plan-card {
+  padding: 40px 32px 36px;
+  border-right: 1px solid var(--hair);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--bg);
+  transition: background .2s ease;
+}
+.plan-card:last-child { border-right: none; }
+.plan-card.featured {
+  background: color-mix(in oklch, var(--brass) 6%, var(--bg));
+}
+.plan-card .plan-tag {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.plan-card .plan-name {
+  font-family: var(--f-display);
+  font-size: 34px;
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+.plan-card .plan-name em { color: var(--brass); font-style: italic; }
+.plan-card .plan-target {
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 24px;
+}
+.plan-card .plan-price {
+  font-family: var(--f-display);
+  font-size: 46px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.plan-card .plan-price small {
+  font-family: var(--f-sans);
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.plan-card .plan-setup {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  font-family: var(--f-mono);
+}
+.plan-card .plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.plan-card .plan-features li {
+  font-size: 13px;
+  color: var(--ink);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.plan-card .plan-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--brass);
+  font-weight: 600;
+}
+.plan-card .plan-toggle {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  border: 1px solid var(--hair-2);
+  background: transparent;
+  padding: 11px 16px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background .2s ease, border-color .2s ease;
+}
+.plan-card .plan-toggle:hover { border-color: var(--ink); }
+.plan-card .plan-toggle .arrow {
+  display: inline-block;
+  transition: transform .25s ease;
+}
+.plan-card.open .plan-toggle .arrow { transform: rotate(90deg); }
+.plan-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, margin-top .35s ease, padding-top .35s ease, border-top-color .3s ease;
+  border-top: 1px solid transparent;
+}
+.plan-card.open .plan-detail {
+  max-height: 1200px;
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top-color: var(--hair);
+}
+.plan-detail dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.plan-detail dt {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.plan-detail dd {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+/* Add-ons */
+.addons {
+  grid-column: 1 / -1;
+  margin-top: 56px;
+  padding: 40px 32px;
+  border: 1px solid var(--hair);
+  background: color-mix(in oklch, var(--ink) 3%, var(--bg));
+}
+.addons h3 {
+  font-family: var(--f-display);
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px 0;
+}
+.addons h3 em { color: var(--brass); font-style: italic; }
+.addons .addons-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+.addons-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--hair);
+}
+.addons-list .addon {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--hair);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+.addons-list .addon:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--hair); padding-left: 0; }
+.addons-list .addon:nth-child(even) { padding-left: 20px; }
+.addons-list .addon .a-name {
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.addons-list .addon .a-name small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.addons-list .addon .a-price {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--brass);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .plans-grid { grid-template-columns: 1fr; }
+  .plan-card { border-right: none; border-bottom: 1px solid var(--hair); }
+  .plan-card:last-child { border-bottom: none; }
+  .addons-list { grid-template-columns: 1fr; }
+  .addons-list .addon,
+  .addons-list .addon:nth-child(odd),
+  .addons-list .addon:nth-child(even) { padding-left: 0; padding-right: 0; border-right: none; }
+}
+
 /* ---- Mobile nav: burger + drawer ---- */
 .nav-burger {
   display: none;
@@ -1816,6 +2023,7 @@ const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
       <a href="#seguretat" data-i18n="nav.security">Seguretat</a>
       <a href="#funcionalitats" data-i18n="nav.features">Funcionalitats</a>
       <a href="#fundadors" data-i18n="nav.founders" style="color:var(--brass)">Fundadors</a>
+      <a href="#plans" data-i18n="nav.plans">Plans</a>
       <a href="#casos" data-i18n="nav.cases">Casos d'ús</a>
       <a href="#roi" data-i18n="nav.roi">ROI</a>
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
@@ -1837,6 +2045,7 @@ const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
     <a href="#seguretat" data-i18n="nav.security">Seguretat</a>
     <a href="#funcionalitats" data-i18n="nav.features">Funcionalitats</a>
     <a href="#fundadors" data-i18n="nav.founders" style="color:var(--brass)">Fundadors</a>
+    <a href="#plans" data-i18n="nav.plans">Plans</a>
     <a href="#casos" data-i18n="nav.cases">Casos d'ús</a>
     <a href="#roi" data-i18n="nav.roi">ROI</a>
     <a href="#faq" data-i18n="nav.faq">FAQ</a>
@@ -2505,6 +2714,195 @@ const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
   </div>
 </section>
 
+<!-- PLANS -->
+<section class="plans" id="plans">
+  <div class="sec-head">
+    <div class="grid">
+      <div class="num-col"><span class="num">§ 08</span></div>
+      <div class="title-col">
+        <h2 class="section-title reveal" data-i18n="pl.title">
+          Plans <em>estàndard</em>.<br/>Tres mides. Zero sorpreses.
+        </h2>
+      </div>
+      <div class="desc-col reveal" data-i18n="pl.desc">
+        Preus transparents segons la mida del teu despatx. Tot inclou hardware dedicat, software local, RAG amb la teva documentació, actualitzacions i suport. Afegeix mòduls a mida quan els necessitis.
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="plans-grid reveal">
+
+      <!-- ESSENCIAL -->
+      <div class="plan-card" data-plan="essencial">
+        <span class="plan-tag" data-i18n="pl.e.tag">Essencial</span>
+        <div class="plan-name">Essencial</div>
+        <div class="plan-target" data-i18n="pl.e.target">1-5 professionals · autònoms, boutique</div>
+        <div class="plan-price">€189<small data-i18n="fd.month">/mes</small></div>
+        <div class="plan-setup" data-i18n="pl.e.setup">Setup únic · 1.800 €</div>
+        <ul class="plan-features">
+          <li data-i18n="pl.e.f1">Mac Mini M4 dedicat (inclòs en setup)</li>
+          <li data-i18n="pl.e.f2">Qwen 2.5 7B local + RAG amb la teva documentació</li>
+          <li data-i18n="pl.e.f3">3 automatitzacions base (resum, extracció, redacció)</li>
+          <li data-i18n="pl.e.f4">Fins a 500 documents ingerits</li>
+          <li data-i18n="pl.e.f5">Suport email · resposta <48 h laborals</li>
+        </ul>
+        <button class="plan-toggle" type="button" onclick="this.closest('.plan-card').classList.toggle('open')">
+          <span data-i18n="pl.detail">Veure detall complet</span>
+          <span class="arrow">→</span>
+        </button>
+        <div class="plan-detail">
+          <dl>
+            <dt data-i18n="pl.d.hw">Hardware</dt>
+            <dd data-i18n="pl.e.d.hw">Mac Mini M4 16 GB · instal·lat a la teva xarxa local · propietat del despatx des del dia 1</dd>
+            <dt data-i18n="pl.d.model">Model LLM</dt>
+            <dd data-i18n="pl.e.d.model">Qwen 2.5 7B Instruct (Apache 2.0) · execució 100% local · dades mai surten del despatx</dd>
+            <dt data-i18n="pl.d.ingest">Ingesta de documents</dt>
+            <dd data-i18n="pl.e.d.ingest">Fins a 500 documents en el setup inicial · PDF, Word, correus · OCR inclòs per escanejats</dd>
+            <dt data-i18n="pl.d.auto">Automatitzacions</dt>
+            <dd data-i18n="pl.e.d.auto">3 base: resum de document, extracció de clàusules/parts/dates, redacció d'escrits tipus configurables</dd>
+            <dt data-i18n="pl.d.users">Usuaris simultanis</dt>
+            <dd data-i18n="pl.e.d.users">Fins a 5 professionals utilitzant l'eina en paral·lel</dd>
+            <dt data-i18n="pl.d.support">Suport</dt>
+            <dd data-i18n="pl.e.d.support">Email · resposta menor a 48 h en horari laboral · actualitzacions mensuals incloses</dd>
+            <dt data-i18n="pl.d.training">Formació</dt>
+            <dd data-i18n="pl.e.d.training">1 sessió remota de 2 h amb tot l'equip · material de referència inclòs</dd>
+            <dt data-i18n="pl.d.rgpd">RGPD</dt>
+            <dd data-i18n="pl.e.d.rgpd">DPA signat · registre d'activitats · suport puntual en qüestions de protecció de dades</dd>
+            <dt data-i18n="pl.d.commit">Compromís</dt>
+            <dd data-i18n="pl.e.d.commit">12 mesos renovables · garantia de devolució 30 dies</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- DESPATX -->
+      <div class="plan-card featured" data-plan="despatx">
+        <span class="plan-tag" data-i18n="pl.d.tag">Despatx · Més contractat</span>
+        <div class="plan-name">Despatx</div>
+        <div class="plan-target" data-i18n="pl.d.target">6-15 professionals · despatx mitjà</div>
+        <div class="plan-price">€349<small data-i18n="fd.month">/mes</small></div>
+        <div class="plan-setup" data-i18n="pl.d.setup">Setup únic · 3.500 €</div>
+        <ul class="plan-features">
+          <li data-i18n="pl.d.f1">Mac Mini M4 Pro 24 GB (més potent)</li>
+          <li data-i18n="pl.d.f2">3 automatitzacions a mida incloses · primer any</li>
+          <li data-i18n="pl.d.f3">Fins a 2.000 documents ingerits</li>
+          <li data-i18n="pl.d.f4">Suport email + WhatsApp · resposta <24 h</li>
+          <li data-i18n="pl.d.f5">Formació presencial a Barcelona · 2 sessions</li>
+        </ul>
+        <button class="plan-toggle" type="button" onclick="this.closest('.plan-card').classList.toggle('open')">
+          <span data-i18n="pl.detail">Veure detall complet</span>
+          <span class="arrow">→</span>
+        </button>
+        <div class="plan-detail">
+          <dl>
+            <dt data-i18n="pl.d.hw">Hardware</dt>
+            <dd data-i18n="pl.d.d.hw">Mac Mini M4 Pro 24 GB · o workstation equivalent segons necessitat · propietat del despatx</dd>
+            <dt data-i18n="pl.d.model">Model LLM</dt>
+            <dd data-i18n="pl.d.d.model">Qwen 2.5 7B + Salamandra 7B (BSC-CNS, entrenat a Barcelona) per a consultes en català</dd>
+            <dt data-i18n="pl.d.ingest">Ingesta de documents</dt>
+            <dd data-i18n="pl.d.d.ingest">Fins a 2.000 documents en setup · expedients, jurisprudència pròpia, contractes tipus</dd>
+            <dt data-i18n="pl.d.auto">Automatitzacions</dt>
+            <dd data-i18n="pl.d.d.auto">3 base + 3 a mida el primer any (valor aprox. 1.200 €) · ampliables via add-ons</dd>
+            <dt data-i18n="pl.d.users">Usuaris simultanis</dt>
+            <dd data-i18n="pl.d.d.users">Fins a 15 professionals concurrents · control d'accés per usuari</dd>
+            <dt data-i18n="pl.d.support">Suport</dt>
+            <dd data-i18n="pl.d.d.support">Email + canal WhatsApp · resposta menor a 24 h · actualitzacions mensuals · preview de noves features</dd>
+            <dt data-i18n="pl.d.training">Formació</dt>
+            <dd data-i18n="pl.d.d.training">2 sessions presencials a Barcelona · formació de nous professionals bonificada</dd>
+            <dt data-i18n="pl.d.rgpd">RGPD</dt>
+            <dd data-i18n="pl.d.d.rgpd">DPA signat · suport puntual amb DPO extern assessor inclòs (fins 5 h/any)</dd>
+            <dt data-i18n="pl.d.commit">Compromís</dt>
+            <dd data-i18n="pl.d.d.commit">12 mesos renovables · garantia de devolució 30 dies</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- BUFET -->
+      <div class="plan-card" data-plan="bufet">
+        <span class="plan-tag" data-i18n="pl.b.tag">Bufet</span>
+        <div class="plan-name">Bufet</div>
+        <div class="plan-target" data-i18n="pl.b.target">16+ professionals · firma consolidada</div>
+        <div class="plan-price" data-i18n="pl.b.price">Des de €699<small data-i18n="fd.month">/mes</small></div>
+        <div class="plan-setup" data-i18n="pl.b.setup">Setup únic · des de 6.500 €</div>
+        <ul class="plan-features">
+          <li data-i18n="pl.b.f1">Workstation dedicada amb GPU · multi-usuari</li>
+          <li data-i18n="pl.b.f2">8 automatitzacions a mida el primer any</li>
+          <li data-i18n="pl.b.f3">Documents il·limitats · integracions a mida</li>
+          <li data-i18n="pl.b.f4">Canal dedicat · resposta <4 h · SLA</li>
+          <li data-i18n="pl.b.f5">DPO extern assignat inclòs</li>
+        </ul>
+        <button class="plan-toggle" type="button" onclick="this.closest('.plan-card').classList.toggle('open')">
+          <span data-i18n="pl.detail">Veure detall complet</span>
+          <span class="arrow">→</span>
+        </button>
+        <div class="plan-detail">
+          <dl>
+            <dt data-i18n="pl.d.hw">Hardware</dt>
+            <dd data-i18n="pl.b.d.hw">Workstation dedicada amb GPU (RTX 4070 Ti o superior) · configuració segons càrrega prevista</dd>
+            <dt data-i18n="pl.d.model">Model LLM</dt>
+            <dd data-i18n="pl.b.d.model">Qwen 2.5 14B + Salamandra · fine-tuning per vertical (civil, mercantil, laboral, fiscal) · RAG ampliat</dd>
+            <dt data-i18n="pl.d.ingest">Ingesta de documents</dt>
+            <dd data-i18n="pl.b.d.ingest">Il·limitada · ingesta automatitzada des del teu gestor documental · reindex periòdic</dd>
+            <dt data-i18n="pl.d.auto">Automatitzacions</dt>
+            <dd data-i18n="pl.b.d.auto">8 a mida el primer any + desenvolupament continuat · flux de treball específic del teu bufet</dd>
+            <dt data-i18n="pl.d.users">Usuaris simultanis</dt>
+            <dd data-i18n="pl.b.d.users">Il·limitats · SSO (Single Sign-On) · integració amb directori corporatiu</dd>
+            <dt data-i18n="pl.d.support">Suport</dt>
+            <dd data-i18n="pl.b.d.support">Canal dedicat · resposta menor a 4 h · SLA 99,5% · preview features · roadmap compartit</dd>
+            <dt data-i18n="pl.d.training">Formació</dt>
+            <dd data-i18n="pl.b.d.training">Formació per equips · sessions il·limitades primer any · onboarding de nous professionals inclòs</dd>
+            <dt data-i18n="pl.d.rgpd">RGPD</dt>
+            <dd data-i18n="pl.b.d.rgpd">DPO extern assignat inclòs · auditoria anual de compliment · informes per clients</dd>
+            <dt data-i18n="pl.d.commit">Compromís</dt>
+            <dd data-i18n="pl.b.d.commit">24 mesos · garantia de devolució 30 dies · condicions negociables per a firmes grans</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ADD-ONS -->
+    <div class="addons reveal">
+      <h3 data-i18n="pl.ao.title">Add-ons i <em>extensions</em>.</h3>
+      <div class="addons-sub" data-i18n="pl.ao.sub">Mòduls addicionals contractables sobre qualsevol plan. Preus orientatius, ajustables segons projecte.</div>
+      <div class="addons-list">
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.1.n">Automatització a mida addicional<small data-i18n="pl.ao.1.s">Un flux específic del teu despatx, desenvolupat i integrat</small></span>
+          <span class="a-price">400 €</span>
+        </div>
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.2.n">Ingesta documental ampliada<small data-i18n="pl.ao.2.s">Cada 500 documents addicionals sobre el límit del plan</small></span>
+          <span class="a-price">250 €</span>
+        </div>
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.3.n">Integració amb gestor documental<small data-i18n="pl.ao.3.s">Lexnet, JustiziaSip o software propietari del despatx</small></span>
+          <span class="a-price" data-i18n="pl.ao.3.p">Des de 800 €</span>
+        </div>
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.4.n">Fine-tuning vertical (LoRA)<small data-i18n="pl.ao.4.s">Model afinat per civil, mercantil, laboral, fiscal o penal</small></span>
+          <span class="a-price">600 €</span>
+        </div>
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.5.n">Ampliació de hardware<small data-i18n="pl.ao.5.s">RAM, emmagatzematge o segona GPU quan el despatx creix</small></span>
+          <span class="a-price" data-i18n="pl.ao.5.p">Cost + 15%</span>
+        </div>
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.6.n">Formació extra de nous professionals<small data-i18n="pl.ao.6.s">Sessió remota de 90 minuts amb material personalitzat</small></span>
+          <span class="a-price">150 €</span>
+        </div>
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.7.n">Consultoria RGPD + DPA<small data-i18n="pl.ao.7.s">Hores puntuals amb DPO extern sobre casos concrets</small></span>
+          <span class="a-price">80 €/h</span>
+        </div>
+        <div class="addon">
+          <span class="a-name" data-i18n="pl.ao.8.n">SLA premium (4 h de resposta)<small data-i18n="pl.ao.8.s">Ampliació al plan Despatx · canal prioritari horari laboral</small></span>
+          <span class="a-price">+99 €/mes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta" id="cta">
   <div class="grid">
@@ -2566,6 +2964,7 @@ window.I18N = {
     "nav.faq": "FAQ",
     "nav.cta": "Sol·licitar demo",
     "nav.founders": "Fundadors",
+    "nav.plans": "Plans",
 
     "fd.title": "Oferta <em>Fundadors</em>.<br/>Només 5 places.",
     "fd.desc": "Busquem 5 despatxos pioners que ens ajudin a construir la IA legal sobirana que Catalunya necessita. A canvi de ser els nostres casos de referència, obtenen condicions úniques i no reproduïbles.",
@@ -2787,6 +3186,46 @@ window.I18N = {
     "nav.faq": "FAQ",
     "nav.cta": "Solicitar demo",
     "nav.founders": "Fundadores",
+    "nav.plans": "Planes",
+    "pl.title": "Planes <em>estándar</em>.<br/>Tres tamaños. Cero sorpresas.",
+    "pl.desc": "Precios transparentes según el tamaño de tu despacho. Todo incluye hardware dedicado, software local, RAG con tu documentación, actualizaciones y soporte. Añade módulos a medida cuando los necesites.",
+    "pl.detail": "Ver detalle completo",
+    "pl.e.tag": "Esencial",
+    "pl.e.target": "1-5 profesionales · autónomos, boutique",
+    "pl.e.setup": "Setup único · 1.800 €",
+    "pl.e.f1": "Mac Mini M4 dedicado (incluido en setup)",
+    "pl.e.f2": "Qwen 2.5 7B local + RAG con tu documentación",
+    "pl.e.f3": "3 automatizaciones base (resumen, extracción, redacción)",
+    "pl.e.f4": "Hasta 500 documentos ingeridos",
+    "pl.e.f5": "Soporte email · respuesta <48 h laborables",
+    "pl.d.tag": "Despacho · Más contratado",
+    "pl.d.target": "6-15 profesionales · despacho mediano",
+    "pl.d.setup": "Setup único · 3.500 €",
+    "pl.d.f1": "Mac Mini M4 Pro 24 GB (más potente)",
+    "pl.d.f2": "3 automatizaciones a medida incluidas · primer año",
+    "pl.d.f3": "Hasta 2.000 documentos ingeridos",
+    "pl.d.f4": "Soporte email + WhatsApp · respuesta <24 h",
+    "pl.d.f5": "Formación presencial en Barcelona · 2 sesiones",
+    "pl.b.tag": "Bufete",
+    "pl.b.target": "16+ profesionales · firma consolidada",
+    "pl.b.price": "Desde €699",
+    "pl.b.setup": "Setup único · desde 6.500 €",
+    "pl.b.f1": "Workstation dedicada con GPU · multi-usuario",
+    "pl.b.f2": "8 automatizaciones a medida el primer año",
+    "pl.b.f3": "Documentos ilimitados · integraciones a medida",
+    "pl.b.f4": "Canal dedicado · respuesta <4 h · SLA",
+    "pl.b.f5": "DPO externo asignado incluido",
+    "pl.d.hw": "Hardware",
+    "pl.d.model": "Modelo LLM",
+    "pl.d.ingest": "Ingesta de documentos",
+    "pl.d.auto": "Automatizaciones",
+    "pl.d.users": "Usuarios simultáneos",
+    "pl.d.support": "Soporte",
+    "pl.d.training": "Formación",
+    "pl.d.rgpd": "RGPD",
+    "pl.d.commit": "Compromiso",
+    "pl.ao.title": "Add-ons y <em>extensiones</em>.",
+    "pl.ao.sub": "Módulos adicionales contratables sobre cualquier plan. Precios orientativos, ajustables según proyecto.",
 
     "fd.title": "Oferta <em>Fundadores</em>.<br/>Solo 5 plazas.",
     "fd.desc": "Buscamos 5 despachos pioneros que nos ayuden a construir la IA legal soberana que Cataluña y España necesitan. A cambio de ser nuestros casos de referencia, obtienen condiciones únicas e irrepetibles.",
